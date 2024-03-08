@@ -12,7 +12,7 @@ const nextConfig = {
      *
      * @see https://nextjs.org/docs/app/api-reference/next-config-js/basePath
      */
-    basePath: process.env.GITHUB_REPOSITORY ? `/${process.env.GITHUB_REPOSITORY.split('/').pop()}` : "",
+    basePath: process.env.GITHUB_REPOSITORY ? `/${process.env.GITHUB_REPOSITORY.split('/')[1]}` : "",
 
     /**
      * Disable server-based image optimization. Next.js does not support
@@ -22,8 +22,6 @@ const nextConfig = {
      */
     images: {
         unoptimized: true,
-        loader: "custom",
-        loaderFile: "./src/app/lib/image/loader.js",
     },
 };
 
