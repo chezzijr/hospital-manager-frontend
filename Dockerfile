@@ -8,7 +8,7 @@ FROM base as dev
 RUN --mount=type=bind,source=package.json,target=package.json \
   --mount=type=bind,source=package-lock.json,target=package-lock.json \
   --mount=type=cache,target=/root/.npm \
-  npm ci --include=dev
+  npm ci
 COPY . .
 ENV NODE_ENV=development
 CMD ["npm", "run", "dev"]
@@ -17,7 +17,7 @@ FROM base as builder
 RUN --mount=type=bind,source=package.json,target=package.json \
   --mount=type=bind,source=package-lock.json,target=package-lock.json \
   --mount=type=cache,target=/root/.npm \
-  npm ci --omit=dev
+  npm ci
 COPY . .
 RUN npm run build && npm prune --production
 
