@@ -69,3 +69,29 @@ body {
 .links {
   margin-bottom: 15px;
 }
+
+input[type="submit"] {
+  width: 150px;
+  height: 50px;
+  padding: 10px;
+  font-size: 15px;
+  border-radius: 5px;
+}
+
+.toggle-password {
+  cursor: pointer;
+  width: 25px;
+  height: 25px;
+  margin-left: 370px;
+  position: relative;
+  top: -32px;
+}
+
+#toggle-password2 {
+  cursor: pointer;
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  right: 575px;
+  top: 400px;
+}

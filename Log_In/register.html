@@ -32,21 +32,26 @@
             />
           </div>
           <div class="field input">
-            <label for="username">Tuổi</label>
-            <input
-              type="number"
-              name="age"
-              id="age"
-              autocomplete="off"
-              required
-            />
-          </div>
-          <div class="field input">
             <label for="password">Mật khẩu</label>
             <input
               type="password"
               name="password"
               id="password"
+              autocomplete="off"
+              required
+            />
+            <img
+              src="/img/a.png"
+              class="toggle-password"
+              onclick="togglePasswordVisibility()"
+            />
+          </div>
+          <div class="field input">
+            <label for="password">Xác nhận mật khẩu</label>
+            <input
+              type="password"
+              name="confirm-password"
+              id="confirm-password"
               autocomplete="off"
               required
             />
@@ -60,5 +65,19 @@
         </form>
       </div>
     </div>
+    <script>
+      function togglePasswordVisibility() {
+        var passwordInput = document.getElementById("password");
+        var toggleImage = document.querySelector(".toggle-password");
+
+        if (passwordInput.type === "password") {
+          passwordInput.type = "text";
+          toggleImage.src = "/img/a.png";
+        } else {
+          passwordInput.type = "password";
+          toggleImage.src = "/img/a.png"; // Đường dẫn đến ảnh khi ẩn mật khẩu
+        }
+      }
+    </script>
   </body>
 </html>
