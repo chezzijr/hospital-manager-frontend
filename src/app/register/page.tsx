@@ -1,7 +1,37 @@
-import React from "react";
+"use client";
+import React, { useState, ChangeEvent } from "react";
 import Link from "next/link";
+import axios from "axios";
 
-const Login = () => {
+interface User {
+  email: string;
+  password: string;
+  role: string;
+}
+
+const Register = () => {
+  const [user, setUser] = useState<User>({
+    email: "",
+    password: "",
+    role: "",
+  });
+
+  const handleUserInfoChange = (
+    e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setUser({ ...user, [name]: value });
+  };
+
+  const handleUserRegister = (user: User) => {
+    axios
+      .post("http://localhost:8081/auth/api/signin", {
+        email: user.email,
+        password: user.password,
+      })
+      .then((respone) => console.log(respone));
+  };
+
   return (
     <div className="w-full h-full top-0 left-0 flex items-center justify-center absolute bg-slate-100">
       <div className="w-[24rem] bg-white px-8 rounded-xl pb-12">
@@ -11,12 +41,25 @@ const Login = () => {
 
         <div className="">
           <h2 className="text-base font-medium mt-12">Email</h2>
-          <input className="w-80 h-10 border-2 border-gray-600 px-2 py-1 focus:outline-none rounded-lg" placeholder="Nhập email của bạn" value="" />
+          <input
+            className="w-80 h-10 border-2 border-gray-600 px-2 py-1 focus:outline-none rounded-lg"
+            placeholder="Nhập email của bạn"
+            name="email"
+            value={user.email}
+            onChange={handleUserInfoChange}
+          />
         </div>
 
         <div className="">
           <h2 className="text-base font-medium mt-6">Password</h2>
-          <input className="w-80 h-10 border-2 border-gray-600 px-2 py-1 focus:outline-none rounded-lg" placeholder="Nhập password của bạn" value="" />
+          <input
+            className="w-80 h-10 border-2 border-gray-600 px-2 py-1 focus:outline-none rounded-lg"
+            placeholder="Nhập password của bạn"
+            type="password"
+            name="password"
+            value={user.password}
+            onChange={handleUserInfoChange}
+          />
         </div>
 
         <div className="w-full flex-start flex-col mt-1 mb-3">
@@ -24,25 +67,43 @@ const Login = () => {
           <select
             id="role"
             className="w-80 h-8 text-base font-normal mb-1"
+            name="password"
+            value={user.password}
+            onChange={handleUserInfoChange}
           >
-            <option className="text-base font-normal">Chọn vai trò của bạn</option>
-            <option className="text-base font-normal" value="PATIENT">Bệnh nhân</option>
-            <option className="text-base font-normal" value="DOCTOR">Bác sĩ</option>
-            <option className="text-base font-normal" value="NURSE">Y tá</option>
+            <option className="text-base font-normal">
+              Chọn vai trò của bạn
+            </option>
+            <option className="text-base font-normal" value="PATIENT">
+              Bệnh nhân
+            </option>
+            <option className="text-base font-normal" value="DOCTOR">
+              Bác sĩ
+            </option>
+            <option className="text-base font-normal" value="NURSE">
+              Y tá
+            </option>
           </select>
         </div>
 
         <div className="mt-16">
-          <button className="w-80 h-12 bg-blue-600 text-lg font-semibold text-white rounded-xl hover:bg-blue-700">Đăng kí</button>
+          <button
+            className="w-80 h-12 bg-blue-600 text-lg font-semibold text-white rounded-xl hover:bg-blue-700"
+            onClick={() => handleUserRegister(user)}
+          >
+            Đăng kí
+          </button>
         </div>
 
         <div className="mt-4 flex-end pb-10">
           <p className="text-xs pr-2">Đã có tài khoản?</p>
-          <Link href={'/login'} className='text-xs underline'>Đăng nhập</Link>
+          <Link href={"/login"} className="text-xs underline">
+            Đăng nhập
+          </Link>
         </div>
       </div>
     </div>
   );
 };
 
-export default Login;
+export default Register;
