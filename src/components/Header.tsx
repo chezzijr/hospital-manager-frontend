@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React from "react"
-import { usePath } from "@/app/lib/hooks/path";
+import { usePath } from "@/lib/hooks/path";
 
 export default function Header() {
     return(
