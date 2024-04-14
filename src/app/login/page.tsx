@@ -1,4 +1,10 @@
 import Login from "@/components/LoginForm";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Đăng nhập",
+    description: "Trang đăng nhập của ứng dụng quản lý bệnh viện",
+};
 
 export default function LoginPage() {
     return (
