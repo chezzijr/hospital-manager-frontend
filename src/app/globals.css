@@ -1,33 +1,75 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+.backgroundimg {
+  z-index: -5;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+.logo_img{
+  float: right;
+  max-width: 100%;
+  max-height: 100%;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.navigation_bar {
+  overflow: hidden;
+  background-color: #333;
+  position: fixed; 
+  top: 0; 
+  width: 100%; 
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.navigation_bar a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 0.9rem 1.2rem;
+  text-decoration: none;
+}
+
+.navigation_bar a:hover {
+  background: #ddd;
+  color: black;
+}
+
+.homeContent {
+  padding: 2.1rem 0;
+  font-family: arial;
+  font-size: 1.35rem;
+  margin: 1.5rem;
+  text-align: center;
+}
+
+.aboutApp {
+  font-family: arial;
+  font-size: 2rem;
+  color: blue;
+  text-align: center;
+}
+
+.button {
+  padding: 2.4rem 0;
+  justify-content: center;
+  text-align: center;
+}
+
+.loginButton {
+  background-color: lightblue;
+  font-size: 1.5rem;
+  border-radius: 1rem;
+}
+
+.signupButton {
+  background-color: lightyellow;
+  font-size: 1.5rem;
+  border-radius: 1rem;
+}
+
+.footer_landing {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: grey;
+  color: white;
+  text-align: center;
+  font-size: 1.5rem;
 }
