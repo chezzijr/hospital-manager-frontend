@@ -30,7 +30,7 @@ const Register = () => {
                 for (let [key, value] of Object.entries(data)) {
                     localStorage.setItem(key, value.toString());
                 }
-                localStorage.setItem("hashCreds", hashCreds(s));
+                localStorage.setItem("hashCreds", hashCreds(data).toString());
 
                 setPending(false);
 

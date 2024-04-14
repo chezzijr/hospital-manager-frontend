@@ -29,7 +29,7 @@ export default function Login() {
                 for (let [key, value] of Object.entries(data)) {
                     localStorage.setItem(key, value.toString())
                 }
-                localStorage.setItem("hashCreds", hashCreds(data))
+                localStorage.setItem("hashCreds", hashCreds(data).toString())
 
                 setPending(false);
                 if (!data.emailVerified) {
