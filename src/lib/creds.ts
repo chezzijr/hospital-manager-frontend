@@ -1,0 +1,30 @@
+import { Credentials } from '@/types/auth';
+import { hashCode } from './hash';
+
+export function hashCreds(creds: Credentials) {
+    let s = creds.uid + creds.role + creds.idToken + creds.refreshToken;
+    return hashCode(s);
+}
+
+export function redirectIfInvalidCreds() {
+    const itemList = ['uid', 'role', 'idToken', 'refreshToken', 'hashCreds'];
+    for (const item of itemList) {
+        if (!localStorage.getItem(item)) {
+            window.location.href = '/';
+            break;
+        }
+    }
+    const creds: Credentials = {
+        uid: localStorage.getItem('uid') || '',
+        role: localStorage.getItem('role') || '',
+        idToken: localStorage.getItem('idToken') || '',
+        refreshToken: localStorage.getItem('refreshToken') || '',
+        emailVerified: true, // we can ignore this for now
+    };
+
+    const storedHashCreds = localStorage.getItem('hashCreds');
+
+    if (hashCreds(creds).toString() !== storedHashCreds) {
+        window.location.href = '/';
+    }
+}
