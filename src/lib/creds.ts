@@ -6,12 +6,11 @@ export function hashCreds(creds: Credentials) {
     return hashCode(s);
 }
 
-export function redirectIfInvalidCreds() {
+export function isStoringCreds() {
     const itemList = ['uid', 'role', 'idToken', 'refreshToken', 'hashCreds'];
     for (const item of itemList) {
         if (!localStorage.getItem(item)) {
-            window.location.href = '/';
-            break;
+            return false
         }
     }
     const creds: Credentials = {
@@ -25,6 +24,8 @@ export function redirectIfInvalidCreds() {
     const storedHashCreds = localStorage.getItem('hashCreds');
 
     if (hashCreds(creds).toString() !== storedHashCreds) {
-        window.location.href = '/';
+        return false
     }
+
+    return true
 }
