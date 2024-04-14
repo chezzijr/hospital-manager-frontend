@@ -1,7 +1,9 @@
 "use client"
 
 import { useState, FormEvent } from 'react';
-import type { AuthResponse } from '@/types/auth';
+import type { Credentials } from '@/types/auth';
+import { hashCode } from '@/lib/hash';
+import { hashCreds } from '@/lib/creds';
 
 export default function Login() {
     const [email, setEmail] = useState('');
@@ -22,11 +24,12 @@ export default function Login() {
             body: JSON.stringify({ email, password })
         }).then(async (res) => {
             if (res.ok) {
-                const data = await res.json() as AuthResponse
+                const data = await res.json() as Credentials
                 // Save the token in the local storage
                 for (let [key, value] of Object.entries(data)) {
                     localStorage.setItem(key, value.toString())
                 }
+                localStorage.setItem("hashCreds", hashCreds(data))
 
                 setPending(false);
                 if (!data.emailVerified) {
