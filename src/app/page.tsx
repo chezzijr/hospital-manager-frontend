@@ -1,5 +1,8 @@
 import Image from "next/image";
+import React from "react"
 import { usePath } from "./lib/hooks/path";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 import Images from '../../public/assets/Images';
 
