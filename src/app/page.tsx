@@ -24,10 +24,14 @@ export default function Home() {
       </div>
       <div className="button">
         <button className="loginButton">
-          Đăng nhập tài khoản
+          <a href = "/login">
+            Đăng nhập tài khoản
+          </a>
         </button>
         <button className="signupButton">
-          Đăng ký tài khoản
+          <a href = "/register">
+            Đăng ký tài khoản
+          </a>
         </button>
       </div>
       <Image
