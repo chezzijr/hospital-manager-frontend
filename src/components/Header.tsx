@@ -12,11 +12,11 @@ export default function Header() {
               width={70}
               height={50}
             />
-            <a href="#home">Trang chủ</a>
-            <a href="#news">Tin tức</a>
-            <a href="#contact">Liên hệ</a>
-            <a href="#help">Hỗ trợ</a>
-            <a href="#notification">Thông báo</a>
+            <a href="/">Trang chủ</a>
+            <a href="/news">Tin tức</a>
+            <a href="/contact">Liên hệ</a>
+            <a href="/help">Hỗ trợ</a>
+            <a href="/notification">Thông báo</a>
       </header>
     );
 }
