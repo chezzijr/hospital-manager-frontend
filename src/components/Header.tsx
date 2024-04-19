@@ -1,13 +1,11 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-
-
-import Images from "@root/public/assets/Images";
+import { Images } from "@root/public/assets/Images";
 
 const Header = () => {
   return (
-    <div className="h-20 bg-blue-500 px-16 flex-between relative">
+    <div className="h-20 bg-blue-500 px-16 flex items-center justify-between">
       <Link href={'/'} className="h-20 flex items-center">
         <Image
           src={Images.logo}

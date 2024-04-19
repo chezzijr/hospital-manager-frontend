@@ -1,6 +1,10 @@
-const Image = {
+const Images = {
     logo: require("./images/hospital-logo.png"),
     background: require("./images/background.jpg"),
 }
 
-export default Image;
+const Icons = {
+    
+}
+
+export { Images, Icons };
