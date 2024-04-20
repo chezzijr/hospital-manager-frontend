@@ -3,7 +3,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
-import '@//app/styles/color.css';
+import '@/app/styles/color.css';
 
 export default function UserProfile() {
   const router = useRouter(); 
