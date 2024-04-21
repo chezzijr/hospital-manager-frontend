@@ -1,4 +1,3 @@
-import ReactStars from "react-rating-stars-component";
 import React from "react";
 
 
@@ -31,20 +30,3 @@ const Star: React.FC<Rating> = ({ rating }) => {
     </div>
   );
 };
-
-const RatingStar: React.FC<RatingStarProps> = ({ star, ratingChanged}) => {
-  return (
-    <ReactStars
-      count={star}
-      onChange={ratingChanged}
-      size={48}
-      isHalf={true}
-      emptyIcon={<i className="far fa-star"></i>}
-      halfIcon={<i className="fa fa-star-half-alt"></i>}
-      fullIcon={<i className="fa fa-star"></i>}
-      activeColor="#ffd700"
-    />
-  );
-};
-
-export { RatingStar, Star};

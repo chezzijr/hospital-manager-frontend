@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 import { FeedbackWithId } from "@/interface";
-import { RatingStar } from "@/components/RatingStar";
 
 const CreateFeedBack = () => {
   const [feedbacks, setFeedbacks] = useState<FeedbackWithId[]>([]);
