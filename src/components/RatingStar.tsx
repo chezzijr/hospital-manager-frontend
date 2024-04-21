@@ -10,7 +10,7 @@ interface Rating {
   rating: number;
 }
 
-const Star: React.FC<Rating> = ({ rating }) => {
+export const Star: React.FC<Rating> = ({ rating }) => {
   const fullStars = Math.floor(rating);
   const hasHalfStar = rating % 1 !== 0;
 
