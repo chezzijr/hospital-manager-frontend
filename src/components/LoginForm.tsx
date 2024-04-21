@@ -31,6 +31,8 @@ export default function Login() {
                 }
                 localStorage.setItem("hashCreds", hashCreds(data).toString())
 
+                console.log(localStorage.getItem("hashCreds"));
+
                 setPending(false);
                 if (!data.emailVerified) {
                     alert('Please verify your email address');
