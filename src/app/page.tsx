@@ -11,36 +11,18 @@ export const metadata: Metadata = {
     icons: "/favicon.ico",
 }
 
+import { Images } from '../../public/assets/Images';
+
 export default function Home() {
   return (
-    <div className="home">
-      <Header/ >
-      {/*Thiết lập tiêu đề trang web*/}
-      <div className="homeContent">
-        <h1>TRANG CHỦ HỆ THỐNG QUẢN LÝ BỆNH VIỆN BKCARE</h1>
-      </div>
-      <div className="aboutApp">
-        <p>Bài tập lớn môn học Lập trình nâng cao - Học kỳ 232</p>
-      </div>
-      <div className="button">
-        <button className="loginButton">
-          <a href = "/login">
-            Đăng nhập tài khoản
-          </a>
-        </button>
-        <button className="signupButton">
-          <a href = "/register">
-            Đăng ký tài khoản
-          </a>
-        </button>
-      </div>
+    <main className="flex items-center justify-center mt-4">
       <Image
-        src={usePath("/images/background.jpg")}
-        alt="Background Image"
-        className="backgroundimg"
-        fill = {true}
+        src={Images.background}
+        width={1000}
+        height={1000}
+        className=""
+        alt="Background"
       />
-      <Footer/ >
-    </div>
+    </main>
   );
 }
