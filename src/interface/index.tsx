@@ -1,4 +1,4 @@
-interface Doctor {
+export interface Doctor {
   name: string;
   specialization: string;
   qualification: string;
@@ -9,10 +9,9 @@ interface Doctor {
   dateOfBirth: string;
 }
 
-interface Feedback {
+export interface Feedback {
   id: string;
   patientId: string;
-  doctorId: string;
   content: string;
   ratingStar: number;
   dateCreated: string;

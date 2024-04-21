@@ -3,8 +3,8 @@ import React from "react";
 
 
 interface RatingStarProps {
-  start: number;
-  ratingChanged?: (newStart: number) => void;
+  star: number;
+  ratingChanged: (newStar: number) => void;
 }
 
 interface Rating {
@@ -32,10 +32,10 @@ const Star: React.FC<Rating> = ({ rating }) => {
   );
 };
 
-const RatingStar: React.FC<RatingStarProps> = ({ start, ratingChanged}) => {
+const RatingStar: React.FC<RatingStarProps> = ({ star, ratingChanged}) => {
   return (
     <ReactStars
-      count={start}
+      count={star}
       onChange={ratingChanged}
       size={48}
       isHalf={true}

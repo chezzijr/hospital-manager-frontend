@@ -19,6 +19,7 @@ const Header = () => {
     localStorage.removeItem("JWT");
     localStorage.removeItem("userInfo");
     localStorage.removeItem("idToken");
+    localStorage.removeItem("role");
     setIsLogin(false);
     setUserRole("");
     router.push("/");
@@ -37,7 +38,6 @@ const Header = () => {
         console.error("Error parsing role:", error);
       }
     }
-    console.log(localStorage.getItem("idToken"), localStorage.getItem("userInfo"), localStorage.getItem("role"))
   }, [isLogin]);
 
   return (
