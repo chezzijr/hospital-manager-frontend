@@ -19,7 +19,6 @@ const Feedback = () => {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
-        console.log(response.data);
         setFeedbacks(response.data);
       })
       .catch((error) => console.log(error));

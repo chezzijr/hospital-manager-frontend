@@ -1,4 +1,5 @@
 export interface Doctor {
+  id: string;
   name: string;
   specialization: string;
   qualification: string;
@@ -15,6 +16,12 @@ export interface Feedback {
   content: string;
   ratingStar: number;
   dateCreated: string;
+}
+
+export interface Location {
+  address: string;
+  floor: string;
+  roomNumber: string;
 }
 
 export interface DoctorWithId {

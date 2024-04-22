@@ -30,8 +30,7 @@ const Appointment = () => {
   const [appointments, setAppointments] = useState<AppointmentWithId[]>([]);
 
   useEffect(() => {
-    // const userId = localStorage.getItem("uid");
-    const userId = "KoIy3ZiqFnWW1jiBKivoZFDMJmf2";
+    const userId = localStorage.getItem("uid");
     const token = localStorage.getItem("idToken");
 
     axios
