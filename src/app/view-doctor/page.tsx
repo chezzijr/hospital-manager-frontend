@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Image from "next/image";
+import Link from "next/link";
 
 import { DoctorWithId } from "@/interface";
 import { Images, Icons } from "@/../public/assets/Images";
@@ -65,9 +66,9 @@ const ViewDoctorInfo = () => {
             {searchInfo &&
               searchDoctors &&
               searchDoctors.map((doctor) => (
-                <div
+                <Link href={`/view-doctor/${doctor.id}`}
                   key={doctor.id}
-                  className="w-full h-28 bg-slate-200 flex items-center justify-start"
+                  className="w-full h-28 bg-slate-200 flex items-center justify-start hover:cursor-pointer"
                 >
                   <Image
                     alt="Doctor image"
@@ -97,7 +98,7 @@ const ViewDoctorInfo = () => {
                       </p>
                     </div>
                   </div>
-                </div>
+                </Link>
               ))}
           </div>
         </div>
@@ -105,7 +106,7 @@ const ViewDoctorInfo = () => {
       <div className="flex flex-wrap justify-between items-center mt-12">
         {doctors &&
           doctors.map((doctor) => (
-            <div key={doctor.id} className="w-60 bg-gray-100 rounded-xl">
+            <Link href={`/view-doctor/${doctor.id}`} key={doctor.id} className="w-60 bg-gray-100 rounded-xl">
               <Image
                 alt="Doctor image"
                 src={Images.doctor}
@@ -129,7 +130,7 @@ const ViewDoctorInfo = () => {
                   </p>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
       </div>
     </div>

@@ -3,7 +3,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import React from 'react';
 
-const errorNotifi = (description: string) =>
+const errorNotification = (description: string) =>
     toast.error(description, {
         position: "top-right",
         autoClose: 1000,
@@ -17,7 +17,7 @@ const errorNotifi = (description: string) =>
     });
 
 
-const warningNotifi = (description: string) =>
+const warningNotification = (description: string) =>
     toast.error(description, {
         position: "top-right",
         autoClose: 1000,
@@ -30,7 +30,7 @@ const warningNotifi = (description: string) =>
         style: { marginTop: 'calc(0.5rem + 1em)' },
     });
 
-const successNotifi = (description: string) =>
+const successNotification = (description: string) =>
     toast.success(description, {
         position: "top-right",
         autoClose: 1000,
@@ -62,4 +62,4 @@ const Notification = () => {
 };
 
 export default Notification;
-export { errorNotifi, successNotifi, warningNotifi };
+export { errorNotification, successNotification, warningNotification };

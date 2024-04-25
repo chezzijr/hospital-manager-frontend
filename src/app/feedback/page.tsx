@@ -35,10 +35,10 @@ const Feedback = () => {
           Tạo Feedback
         </Link>
       </div>
-      <div className="flex flex-wrap items-center justify-between">
+      <div className="flex flex-wrap items-center justify-start">
         {feedbacks &&
           feedbacks.map((feedback) => (
-            <div key={feedback.id} className="w-80 border border-gray-500 rounded-xl flex items-start justify-start py-4 px-4">
+            <div key={feedback.id} className="w-80 border border-gray-500 rounded-xl flex items-start justify-start py-4 px-4 mt-8 ml-12">
               <Image
                 alt="User avatar"
                 src={Icons.avatar}
@@ -50,11 +50,11 @@ const Feedback = () => {
                 <div className="text-lg font-medium">
                   Đánh giá từ người dùng
                 </div>
-                <div className="text-base font-normal">
+                <div className="text-base font-normal h-12 overflow-hidden">
                   {feedback.feedback.content}
                 </div>
                 <div className="">
-                  <Star rating={5} />
+                  <Star rating={feedback.feedback.ratingStar} />
                 </div>
               </div>
             </div>

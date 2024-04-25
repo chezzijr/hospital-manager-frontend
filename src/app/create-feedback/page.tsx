@@ -1,20 +1,16 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
 
 import { FeedbackWithId } from "@/interface";
+import { RatingStar } from "@/components/RatingStar";
+import { error } from "console";
 
 const CreateFeedBack = () => {
   const [feedbacks, setFeedbacks] = useState<FeedbackWithId[]>([]);
   const [ratingStar, setRatingStar] = useState(0);
   const [contents, setContents] = useState("");
-
-  const handleChangeRatingStar: (rating: number) => void = async (
-    rating: number
-  ) => {
-    setRatingStar(rating);
-    console.log(rating);
-  };
 
   useEffect(() => {
     const token = localStorage.getItem("idToken");
@@ -27,6 +23,36 @@ const CreateFeedBack = () => {
       })
       .catch((error) => console.log(error));
   }, []);
+
+  const handleCreateNewFeedback = () => {
+    const token = localStorage.getItem("idToken");
+    const id = uuidv4();
+    const patientId = localStorage.getItem("uid");
+    const dateCreated = new Date();
+    axios
+      .post(
+        `${process.env.NEXT_PUBLIC_API_URL}/feedback/create`,
+        {
+          id: id,
+          patientId: patientId,
+          content: contents,
+          ratingStar: ratingStar,
+          dateCreated: dateCreated.toISOString(),
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <div className="mx-20 mt-12 flex items-center justify-center">
@@ -42,15 +68,18 @@ const CreateFeedBack = () => {
             className="w-5/6 rounded-lg border border-white focus:border-transparent focus:outline-none px-6 mt-1"
           />
         </div>
-        <div className="flex items-center justify-between">
-          {/* <RatingStar star={5} ratingChanged={handleChangeRatingStar} /> */}
+        <div className="flex items-center justify-center mt-6">
+          <RatingStar setRating={setRatingStar} size={60} />
         </div>
 
         <div className="mx-12 flex items-center justify-between mb-12 mt-12">
           <button className="w-32 h-10 bg-gray-500 hover:bg-gray-600 text-lg font-medium rounded-xl">
             Hủy
           </button>
-          <button className="w-32 h-10 bg-blue-500 hover:bg-blue-600 text-lg font-medium rounded-xl text-white">
+          <button
+            className="w-32 h-10 bg-blue-500 hover:bg-blue-600 text-lg font-medium rounded-xl text-white"
+            onClick={handleCreateNewFeedback}
+          >
             Xác nhận
           </button>
         </div>
