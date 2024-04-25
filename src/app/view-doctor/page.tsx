@@ -6,6 +6,7 @@ import Link from "next/link";
 
 import { DoctorWithId } from "@/interface";
 import { Images, Icons } from "@/../public/assets/Images";
+import { NEXT_PUBLIC_API_URL } from "@/ultils/contranst";
 
 const ViewDoctorInfo = () => {
   const [doctors, setDoctors] = useState<DoctorWithId[]>([]);
@@ -15,7 +16,7 @@ const ViewDoctorInfo = () => {
   useEffect(() => {
     const token = localStorage.getItem("idToken");
     axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/doctor`, {
+      .get(`${NEXT_PUBLIC_API_URL}/doctor`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
@@ -29,7 +30,7 @@ const ViewDoctorInfo = () => {
   ) => {
     const token = localStorage.getItem("idToken");
     axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/doctor/name/${doctorName}`, {
+      .get(`${NEXT_PUBLIC_API_URL}/doctor/name/${doctorName}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {

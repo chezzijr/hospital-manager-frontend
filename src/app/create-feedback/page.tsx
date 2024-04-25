@@ -5,7 +5,8 @@ import { v4 as uuidv4 } from "uuid";
 
 import { FeedbackWithId } from "@/interface";
 import { RatingStar } from "@/components/RatingStar";
-import { error } from "console";
+import { NEXT_PUBLIC_API_URL } from "@/ultils/contranst";
+
 
 const CreateFeedBack = () => {
   const [feedbacks, setFeedbacks] = useState<FeedbackWithId[]>([]);
@@ -15,7 +16,7 @@ const CreateFeedBack = () => {
   useEffect(() => {
     const token = localStorage.getItem("idToken");
     axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/feedback`, {
+      .get(`${NEXT_PUBLIC_API_URL}/feedback`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
@@ -31,7 +32,7 @@ const CreateFeedBack = () => {
     const dateCreated = new Date();
     axios
       .post(
-        `${process.env.NEXT_PUBLIC_API_URL}/feedback/create`,
+        `${NEXT_PUBLIC_API_URL}/feedback/create`,
         {
           id: id,
           patientId: patientId,

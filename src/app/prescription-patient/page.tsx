@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import axios from "axios";
+import { NEXT_PUBLIC_API_URL } from "@/ultils/contranst";
 
 import { PrescriptionWithId, Medicine } from "@/interface";
 
@@ -13,7 +14,7 @@ const Prescription = () => {
     const token = localStorage.getItem("idToken");
     const uid = localStorage.getItem("uid");
     axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/prescription/patient/${uid}`, {
+      .get(`${NEXT_PUBLIC_API_URL}/prescription/patient/${uid}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {

@@ -3,9 +3,10 @@ import Image from "next/image";
 
 import { Images, Icons } from "@/../public/assets/Images";
 import { DoctorWithId } from "@/interface";
+import { NEXT_PUBLIC_API_URL } from "@/ultils/contranst";
 
 export async function generateStaticParams() {
-  const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/doctor`);
+  const response = await axios.get(`${NEXT_PUBLIC_API_URL}/doctor`);
   const doctors = response.data;
 
   return doctors.map((doctor: DoctorWithId) => ({
@@ -15,9 +16,9 @@ export async function generateStaticParams() {
 
 async function getDoctorById(id: string) {
   const response = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_URL}/doctor/${id}`
+    `${NEXT_PUBLIC_API_URL}/doctor/${id}`
   );
-  const doctor = await response.data;
+  const doctor = response.data;
   return doctor;
 }
 

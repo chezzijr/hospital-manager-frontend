@@ -20,6 +20,7 @@
     "react-rating-stars-component": "^2.2.0",
     "react-stars": "^2.2.5",
     "react-toastify": "^10.0.5",
+    "sharp": "^0.33.3",
     "uuid": "^9.0.1"
   },
   "devDependencies": {

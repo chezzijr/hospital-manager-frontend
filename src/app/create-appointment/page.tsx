@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import Link from "next/link";
 import { v4 as uuidv4 } from "uuid";
+import { NEXT_PUBLIC_API_URL } from "@/ultils/contranst";
+
 
 import { Images, Icons } from "@/../public/assets/Images";
 import CalendarForm from "@/components/CanlendarForm";
@@ -25,7 +27,7 @@ const CreateAppointment = () => {
   useEffect(() => {
     const token = localStorage.getItem("idToken");
     axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/doctor`, {
+      .get(`${NEXT_PUBLIC_API_URL}/doctor`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
@@ -64,7 +66,7 @@ const CreateAppointment = () => {
     const token = localStorage.getItem("idToken");
 
     axios
-      .post(`${process.env.NEXT_PUBLIC_API_URL}/appointment/create`, {
+      .post(`${NEXT_PUBLIC_API_URL}/appointment/create`, {
         "patientId": patientId,
         "doctorId": doctorId,
         "id": id,

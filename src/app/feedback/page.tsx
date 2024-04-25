@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import axios from "axios";
+import { NEXT_PUBLIC_API_URL } from "@/ultils/contranst";
+
 
 import { Images, Icons } from "@/../public/assets/Images";
 
@@ -15,7 +17,7 @@ const Feedback = () => {
   useEffect(() => {
     const token = localStorage.getItem("idToken");
     axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/feedback`, {
+      .get(`${NEXT_PUBLIC_API_URL}/feedback`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {

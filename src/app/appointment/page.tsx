@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import axios from "axios";
+import { NEXT_PUBLIC_API_URL } from "@/ultils/contranst";
 
 interface Location {
   address: string;
@@ -34,7 +35,7 @@ const Appointment = () => {
     const token = localStorage.getItem("idToken");
 
     axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/appointment/patient/${userId}`, {
+      .get(`${NEXT_PUBLIC_API_URL}/appointment/patient/${userId}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
