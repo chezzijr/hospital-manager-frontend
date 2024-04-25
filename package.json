@@ -18,6 +18,7 @@
     "react-calendar": "^4.8.0",
     "react-dom": "^18",
     "react-rating-stars-component": "^2.2.0",
+    "react-stars": "^2.2.5",
     "react-toastify": "^10.0.5",
     "uuid": "^9.0.1"
   },
@@ -25,6 +26,7 @@
     "@types/node": "^20",
     "@types/react": "^18.2.74",
     "@types/react-dom": "^18",
+    "@types/react-stars": "^2.2.4",
     "@types/uuid": "^9.0.8",
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
