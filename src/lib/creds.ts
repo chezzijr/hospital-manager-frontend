@@ -6,6 +6,20 @@ export function hashCreds(creds: Credentials) {
     return hashCode(s);
 }
 
+export function getCredentials(): Credentials | null {
+    if (!isStoringCreds()) {
+        return null
+    }
+
+    return {
+        uid: localStorage.getItem('uid') || '',
+        role: localStorage.getItem('role') || '',
+        idToken: localStorage.getItem('idToken') || '',
+        refreshToken: localStorage.getItem('refreshToken') || '',
+        emailVerified: localStorage.getItem('emailVerified') === 'true',
+    };
+}
+
 export function isStoringCreds() {
     const itemList = ['uid', 'role', 'idToken', 'refreshToken', 'hashCreds'];
     for (const item of itemList) {

@@ -1,5 +1,6 @@
 "use client"
 
+import { getCredentials } from '@/lib/creds';
 import { useEffect, useState } from 'react';
 
 export default function ProfilePage() {
@@ -7,28 +8,40 @@ export default function ProfilePage() {
     const [error, setError] = useState('');
 
     useEffect(() => {
-        const uid = localStorage.getItem('uid');
-        if (!uid) {
+        const creds = getCredentials()
+        if (!creds) {
             window.location.href = '/login';
+            return
         }
 
         let path = ""
-        const role = localStorage.getItem('role');
+        const role = creds.role;
         if (role === 'DOCTOR') {
-            path = '/doctor'
+            path = 'doctor'
         } else if (role === 'PATIENT') {
-            path = '/patient'
+            path = 'patient'
         } else if (role === 'ADMIN') {
-            path = '/admin'
+            path = 'admin'
         } else {
             window.location.href = '/login';
         }
-        fetch(`${process.env.NEXT_PUBLIC_API_URL}/${path}/${uid}`, {
+
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/${path}/${creds.uid}`, {
             method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'authorization': 'Bearer ' + creds.idToken,
+            },
         }).then(async (res) => {
+            console.log(res);
             if (res.ok) {
                 const data = await res.json();
-                setProfile(data);
+                console.log(data);
+                if (data) {
+                    setProfile(data);
+                } else {
+                    window.location.href = '/' + path;
+                }
             } else {
                 const data = await res.json();
                 setError(data.message);
