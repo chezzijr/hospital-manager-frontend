@@ -1,5 +1,6 @@
 "use client"
 
+import { getCredentials } from '@/lib/creds';
 import { FormEvent, useState } from 'react';
 
 export function CreateUserForm() {
@@ -7,10 +8,46 @@ export function CreateUserForm() {
     const [password, setPassword] = useState('');
     const [role, setRole] = useState('');
 
+    const [error, setError] = useState("");
+    const [success, setSuccess] = useState(false);
+    const [pending, setPending] = useState(false);
+
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setPending(true);
+
+        const creds = getCredentials()
+        if (!creds || creds.role !== 'ADMIN') {
+            setError("Unauthorized");
+            return;
+        }
+
         // Handle user creation logic here
-        console.log('Email:', email, 'Password:', password, 'Role:', role);
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/createUser`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'authorization': 'Bearer ' + creds.idToken,
+            },
+            body: JSON.stringify({
+                email,
+                password,
+                role,
+            }),
+        }).then(async (res) => {
+            if (res.ok) {
+                setEmail('');
+                setPassword('');
+                setSuccess(true);
+            } else {
+                const data = await res.json();
+                setError(data.message);
+            }
+            setPending(false);
+        }).catch((err) => {
+            setError(err.message);
+            setPending(false);
+        })
     };
 
     return (
@@ -68,10 +105,13 @@ export function CreateUserForm() {
                         <button
                             type="submit"
                             className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            disabled={pending}
                         >
                             Create
                         </button>
                     </div>
+                    {error && <div className="text-red-500">{error}</div>}
+                    {success && <div className="text-green-500">User created successfully</div>}
                 </form>
             </div>
         </div>
