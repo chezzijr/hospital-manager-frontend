@@ -33,18 +33,16 @@ export default function ProfilePage() {
                 'authorization': 'Bearer ' + creds.idToken,
             },
         }).then(async (res) => {
-            console.log(res);
             if (res.ok) {
                 const data = await res.json();
                 console.log(data);
                 if (data) {
                     setProfile(data);
                 } else {
-                    window.location.href = '/' + path;
+                    setError('No data found');
                 }
             } else {
-                const data = await res.json();
-                setError(data.message);
+                window.location.href = '/' + path;
             }
         }).catch((error) => {
             setError('An error occurred: ' + error.message);
@@ -57,6 +55,7 @@ export default function ProfilePage() {
             <div>
                 {JSON.stringify(profile, null, 2)}
             </div>
+            {error && <div className="text-red-500">{error}</div>}
         </div>
     );
 }

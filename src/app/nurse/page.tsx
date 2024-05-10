@@ -66,9 +66,6 @@ export default function UserProfile() {
     };
     return (
         <>
-            <Head>
-                <title>Thông tin y tá</title>
-            </Head>
             <div className="top">
                 <div className="container">
                     <div className="header">
@@ -130,7 +127,7 @@ export default function UserProfile() {
                         <input type="number" id="yearOfExperience" name="yearOfExperience" value={formData.yearOfExperience} onChange={handleChange} required />
 
                         <label htmlFor="phone">Số điện thoại:</label>
-                        <input type="text" id="phone" name="phone" value={formData.phoneNumber} onChange={handleChange} required />
+                        <input type="text" pattern="[0-9]+" id="phone" name="phone" value={formData.phoneNumber} onChange={handleChange} required />
                     </div>
                     {error && <div style={{ color: 'red' }}>{error}</div>}
 

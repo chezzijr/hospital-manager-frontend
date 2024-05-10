@@ -85,10 +85,6 @@ export default function UserProfile() {
 
     return (
         <>
-            <Head>
-                <title>Thông tin bác sĩ</title>
-            </Head>
-
             <div>
                 <div className="top">
                     <div className="container">
@@ -130,18 +126,18 @@ export default function UserProfile() {
                                 <option value="female">Nữ</option>
                                 <option value="other">Khác</option>
 
-                                <label htmlFor="phone">Số điện thoại:</label>
-                                <input type="text" id="phoneNumber" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} required />
                             </select>
+                            <label htmlFor="phone">Số điện thoại:</label>
+                            <input type="text" id="phoneNumber" name="phoneNumber" pattern="[0-9]+" value={formData.phoneNumber} onChange={handleChange} required />
 
                             <button type="submit" style={{ textAlign: 'center' }} >
                                 Lưu
                             </button>
                         </div>
 
-                        <div className="right-form">
+                        <div className="right-form flex flex-col">
                             <label htmlFor="schedule">Thời gian hoạt động:</label>
-                            <input type="number" id="workingHours" name="workingHours" value={formData.workingHours} onChange={handleChange} required />
+                            <input type="number" min="0" id="workingHours" name="workingHours" value={formData.workingHours} onChange={handleChange} required />
 
                             <label htmlFor="specialization">Chuyên khoa:</label>
                             <input type="text" id="specialization" name="specialization" value={formData.specialization} onChange={handleChange} required />
@@ -150,7 +146,7 @@ export default function UserProfile() {
                             <input type="text" id="qualification" name="qualification" value={formData.qualification} onChange={handleChange} required />
 
                             <label htmlFor="yearOfExperience">Số năm kinh nghiệm:</label>
-                            <input type="number" id="yearOfExperience" name="yearOfExperience" value={formData.yearOfExperience} onChange={handleChange} required />
+                            <input type="number" min="0" id="yearOfExperience" name="yearOfExperience" value={formData.yearOfExperience} onChange={handleChange} required />
                         </div>
                         {error && <div style={{ color: 'red' }}>{error}</div>}
                     </form>

@@ -64,9 +64,6 @@ export default function UserProfile() {
 
     return (
         <>
-            <Head>
-                <title>Hồ Sơ Bệnh Nhân</title>
-            </Head>
             <div className="top">
                 <div className="container">
                     <div className="header">
