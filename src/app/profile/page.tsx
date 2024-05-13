@@ -67,10 +67,11 @@ function ProfileRenderer({ profile }: { profile: any }) {
     const role = creds.role.toLowerCase();
     const array = Object.entries(profile[role]);
     const items = array.filter(([key, value]) => key && value).map(([key, value]) => {
+        const val = value as string;
         return (
             <div key={key} className="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">{key}</dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2">{value}</dd>
+                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2">{val}</dd>
             </div>
         );
     })

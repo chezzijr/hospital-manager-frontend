@@ -4,7 +4,6 @@ import { useRouter } from 'next/navigation';
 import { FormEvent, useEffect, useState } from 'react';
 import '@/app/styles/color.css';
 import { getCredentials } from '@/lib/creds';
-import Head from 'next/head';
 
 export default function UserProfile() {
     const router = useRouter();
@@ -27,7 +26,7 @@ export default function UserProfile() {
             .catch(err => {
                 setError(err)
             })
-    }, [])
+    }, [router])
 
     const [formData, setFormData] = useState({
         name: '',
