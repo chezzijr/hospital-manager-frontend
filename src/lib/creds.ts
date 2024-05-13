@@ -1,5 +1,6 @@
 import { Credentials } from '@/types/auth';
 import { hashCode } from './hash';
+import { useState } from 'react';
 
 export function hashCreds(creds: Credentials) {
     let s = creds.uid + creds.role + creds.idToken + creds.refreshToken;
@@ -42,4 +43,41 @@ export function isStoringCreds() {
     }
 
     return true
+}
+
+export function refresh() {
+    const creds = getCredentials();
+    if (!creds) {
+        window.location.href = '/login';
+        return;
+    }
+
+    const refreshToken = creds.refreshToken;
+    const url = process.env.NEXT_PUBLIC_API_URL + '/auth/refreshToken';
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ refreshToken }),
+    })
+        .then((res) => res.json())
+        .then((data) => {
+            if (data.error) {
+                window.location.href = '/login';
+            } else {
+                const { accessToken, refreshToken } = data;
+                localStorage.setItem('idToken', accessToken);
+                localStorage.setItem('refreshToken', refreshToken);
+                creds.idToken = accessToken;
+                creds.refreshToken = refreshToken;
+                const hash = hashCreds(creds);
+                localStorage.setItem('hashCreds', hash.toString());
+                // refresh page
+                window.location.reload();
+            }
+        })
+        .catch((err) => {
+            window.location.href = '/login';
+        })
 }
