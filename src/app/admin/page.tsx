@@ -1,5 +1,7 @@
 "use client"
 import { CreateUserForm } from "@/components/CreateUserForm"
+import MedicalEquipmentManagement from "@/components/MedicalEquipmentManagement";
+import SelectTab from "@/components/SelectTab"
 import { getCredentials } from "@/lib/creds";
 import { useEffect, useState } from "react"
 
@@ -25,11 +27,13 @@ export default function AdminDashboardPage() {
     return (
         <>
             {pending && <div>Loading...</div>}
-            {pending && !auth && <div>Unauthorized</div>}
+            {!pending && !auth && <div>Unauthorized</div>}
             {!pending && auth && (
                 <div>
-                    <h1>Admin Dashboard</h1>
-                    <CreateUserForm />
+                    <SelectTab options={[
+                        { name: 'Tạo người dùng', value: <CreateUserForm /> },
+                        { name: 'Quản lý trang thiết bị y tế', value: <MedicalEquipmentManagement /> },
+                    ]} />
                 </div>
             )}
         </>
