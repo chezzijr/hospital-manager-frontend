@@ -104,10 +104,10 @@ const ViewDoctorInfo = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-wrap justify-between items-center mt-12">
+      <div className="flex flex-wrap justify-start items-center mt-12">
         {doctors &&
           doctors.map((doctor) => (
-            <Link href={`/view-doctor/${doctor.id}`} key={doctor.id} className="w-60 bg-gray-100 rounded-xl">
+            <Link href={`/view-doctor/${doctor.id}`} key={doctor.id} className="w-60 bg-gray-100 rounded-xl mx-4 my-2">
               <Image
                 alt="Doctor image"
                 src={Images.doctor}

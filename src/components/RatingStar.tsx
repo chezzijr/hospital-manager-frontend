@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import ReactStars from "react-stars";
 
 interface StarRating {
@@ -51,6 +50,7 @@ export const RatingStar: React.FC<Rating> = ({ setRating, size }) => {
         onChange={ratingChanged}
         size={size}
         color2={"#ffd700"}
+        className="static-react-stars" // Use the static class name defined in custom CSS
       />
     </div>
   );

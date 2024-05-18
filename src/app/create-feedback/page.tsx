@@ -2,16 +2,17 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
+import { useRouter } from "next/navigation";
 
 import { FeedbackWithId } from "@/interface";
-import { RatingStar } from "@/components/RatingStar";
+// import { RatingStar } from "@/components/RatingStar";
 import { NEXT_PUBLIC_API_URL } from "@/ultils/contranst";
-
 
 const CreateFeedBack = () => {
   const [feedbacks, setFeedbacks] = useState<FeedbackWithId[]>([]);
   const [ratingStar, setRatingStar] = useState(0);
   const [contents, setContents] = useState("");
+  const router = useRouter();
 
   useEffect(() => {
     const token = localStorage.getItem("idToken");
@@ -49,6 +50,8 @@ const CreateFeedBack = () => {
       )
       .then((response) => {
         console.log(response);
+        alert(response.data);
+        setTimeout(() => router.push("/feedback"), 2000);
       })
       .catch((error) => {
         console.log(error);
@@ -69,12 +72,33 @@ const CreateFeedBack = () => {
             className="w-5/6 rounded-lg border border-white focus:border-transparent focus:outline-none px-6 mt-1"
           />
         </div>
-        <div className="flex items-center justify-center mt-6">
-          <RatingStar setRating={setRatingStar} size={60} />
+        <div className="flex items-center justify-between mt-6 mx-12">
+          {/* <RatingStar setRating={setRatingStar} size={60} /> */}
+          Để lại số sao của bạn:
+          <input
+            className="border-none outline-none rounded-sm h-8 pl-2"
+            placeholder=""
+            value={ratingStar == 0 ? "" : ratingStar}
+            onChange={(e) => {
+              if (e.target.value == "") {
+                setRatingStar(0);
+              } else if (
+                parseInt(e.target.value) >= 0 &&
+                parseInt(e.target.value) <= 5
+              ) {
+                setRatingStar(parseInt(e.target.value));
+              }
+            }}
+          />
         </div>
 
         <div className="mx-12 flex items-center justify-between mb-12 mt-12">
-          <button className="w-32 h-10 bg-gray-500 hover:bg-gray-600 text-lg font-medium rounded-xl">
+          <button
+            className="w-32 h-10 bg-gray-500 hover:bg-gray-600 text-lg font-medium rounded-xl"
+            onClick={() => {
+              router.push("/feedback");
+            }}
+          >
             Hủy
           </button>
           <button

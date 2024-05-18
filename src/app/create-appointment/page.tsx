@@ -7,7 +7,6 @@ import Link from "next/link";
 import { v4 as uuidv4 } from "uuid";
 import { NEXT_PUBLIC_API_URL } from "@/ultils/contranst";
 
-
 import { Images, Icons } from "@/../public/assets/Images";
 import CalendarForm from "@/components/CanlendarForm";
 import { DoctorWithId, Doctor, Location } from "@/interface";
@@ -41,7 +40,7 @@ const CreateAppointment = () => {
     const id = uuidv4();
     const patientId: string | null = localStorage?.getItem("uid");
     const doctorId = doctor?.id;
-    const appointmentDate = new Date();
+    const appointmentDate = date ? new Date(date.toString()) : new Date();
     const appointmentContent = content;
     const status = "WATING";
     const location: Location = {
@@ -56,7 +55,10 @@ const CreateAppointment = () => {
       formData.append("patientId", patientId);
       formData.append("doctorId", doctorId);
       formData.append("id", id);
-      formData.append("appointmentDate", appointmentDate.toISOString());
+      formData.append(
+        "appointmentDate",
+        date ? date.toString() : appointmentDate.toISOString()
+      );
       formData.append("content", appointmentContent);
       formData.append("status", status);
       formData.append("location", locationToString);
@@ -66,22 +68,29 @@ const CreateAppointment = () => {
     const token = localStorage.getItem("idToken");
 
     axios
-      .post(`${NEXT_PUBLIC_API_URL}/appointment/create`, {
-        "patientId": patientId,
-        "doctorId": doctorId,
-        "id": id,
-        "appointmentDate": appointmentDate,
-        "content": content,
-        "status": status,
-        "location": location,
-        "dateCreated": dateCreated
-      }, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
+      .post(
+        `${NEXT_PUBLIC_API_URL}/appointment/create`,
+        {
+          patientId: patientId,
+          doctorId: doctorId,
+          id: id,
+          appointmentDate: appointmentDate,
+          content: content,
+          status: status,
+          location: location,
+          dateCreated: dateCreated,
         },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response);
+        alert(response.data);
       })
-      .then((response) => console.log(response))
       .catch((error) => console.log(error));
   };
 
@@ -186,7 +195,7 @@ const CreateAppointment = () => {
             className="w-32 h-10 bg-blue-500 hover:bg-blue-600 text-lg font-medium rounded-xl text-white"
             onClick={() => {
               handleCreateNewAppointment();
-              setTimeout(() => router.push("/appointment"), 1000);
+              setTimeout(() => router.push("/appointment"), 2000);
             }}
           >
             Xác nhận
