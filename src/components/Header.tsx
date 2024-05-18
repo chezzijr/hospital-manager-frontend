@@ -10,7 +10,6 @@ import { getCredentials } from "@/lib/creds";
 
 const Header = () => {
     const { isLogin, setIsLogin } = useAuthContext();
-    const [userInfo, setUserInfo] = useState();
     const [userRole, setUserRole] = useState("");
     const [isShowMenuUser, setIsShowMenuUser] = useState(false);
 
