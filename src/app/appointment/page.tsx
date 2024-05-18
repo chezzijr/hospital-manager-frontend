@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import axios from "axios";
 import { NEXT_PUBLIC_API_URL } from "@/ultils/contranst";
+import { getCredentials } from "@/lib/creds";
 
 interface Location {
   address: string;
@@ -31,8 +32,13 @@ const Appointment = () => {
   const [appointments, setAppointments] = useState<AppointmentWithId[]>([]);
 
   useEffect(() => {
-    const userId = localStorage.getItem("uid");
-    const token = localStorage.getItem("idToken");
+    const creds = getCredentials();
+    if (!creds) {
+      window.location.href = "/login";
+      return;
+    }
+    const userId = creds.uid;
+    const token = creds.idToken;
 
     axios
       .get(`${NEXT_PUBLIC_API_URL}/appointment/patient/${userId}`, {

@@ -5,7 +5,7 @@ import Image from "next/image";
 import axios from "axios";
 import { NEXT_PUBLIC_API_URL } from "@/ultils/contranst";
 
-
+import { getCredentials } from "@/lib/creds";
 import { Images, Icons } from "@/../public/assets/Images";
 
 import { FeedbackWithId } from "@/interface/index";
@@ -15,7 +15,12 @@ const Feedback = () => {
   const [feedbacks, setFeedbacks] = useState<FeedbackWithId[]>([]);
 
   useEffect(() => {
-    const token = localStorage.getItem("idToken");
+    const creds = getCredentials();
+    if (!creds) {
+      window.location.href = "/login";
+      return;
+    }
+    const token = creds.idToken;
     axios
       .get(`${NEXT_PUBLIC_API_URL}/feedback`, {
         headers: { Authorization: `Bearer ${token}` },
