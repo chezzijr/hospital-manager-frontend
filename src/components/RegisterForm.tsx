@@ -1,6 +1,6 @@
 "use client"
 
-import { hashCreds } from '@/lib/creds';
+import { hashCreds, storeCreds } from '@/lib/creds';
 import { hashCode } from '@/lib/hash';
 import { Credentials } from '@/types/auth';
 import { useState, FormEvent } from 'react';
@@ -27,10 +27,11 @@ const Register = () => {
             if (res.ok) {
                 const data = await res.json() as Credentials
                 // Save the token in the local storage
-                for (let [key, value] of Object.entries(data)) {
-                    localStorage.setItem(key, value.toString());
-                }
-                localStorage.setItem("hashCreds", hashCreds(data).toString());
+                // for (let [key, value] of Object.entries(data)) {
+                //     localStorage.setItem(key, value.toString());
+                // }
+                // localStorage.setItem("hashCreds", hashCreds(data).toString());
+                storeCreds(data)
 
                 setPending(false);
 

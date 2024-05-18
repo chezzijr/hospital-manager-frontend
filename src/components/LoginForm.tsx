@@ -3,7 +3,7 @@
 import { useState, FormEvent } from 'react';
 import type { Credentials } from '@/types/auth';
 import { hashCode } from '@/lib/hash';
-import { hashCreds } from '@/lib/creds';
+import { hashCreds, storeCreds } from '@/lib/creds';
 
 export default function Login() {
     const [email, setEmail] = useState('');
@@ -26,12 +26,13 @@ export default function Login() {
             if (res.ok) {
                 const data = await res.json() as Credentials
                 // Save the token in the local storage
-                for (let [key, value] of Object.entries(data)) {
-                    localStorage.setItem(key, value.toString())
-                }
-                localStorage.setItem("hashCreds", hashCreds(data).toString())
+                // for (let [key, value] of Object.entries(data)) {
+                //     localStorage.setItem(key, value.toString())
+                // }
+                // localStorage.setItem("hashCreds", hashCreds(data).toString())
 
-                console.log(localStorage.getItem("hashCreds"));
+                // console.log(localStorage.getItem("hashCreds"));
+                storeCreds(data)
 
                 setPending(false);
                 if (!data.emailVerified) {

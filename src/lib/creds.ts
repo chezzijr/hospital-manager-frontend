@@ -7,6 +7,14 @@ export function hashCreds(creds: Credentials) {
     return hashCode(s);
 }
 
+export function storeCreds(creds: Credentials) {
+    for (let [key, value] of Object.entries(creds)) {
+        localStorage.setItem(key, value.toString());
+    }
+    localStorage.setItem("hashCreds", hashCreds(creds).toString());
+}
+    
+
 export function getCredentials(): Credentials | null {
     if (!isStoringCreds()) {
         return null
