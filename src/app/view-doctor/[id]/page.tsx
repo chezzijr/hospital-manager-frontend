@@ -10,7 +10,7 @@
 //   const doctors = response.data;
 
 //   return doctors.map((doctor: DoctorWithId) => ({
-//     id: doctor.doctor.id.toString(),
+//     id: doctor.doctor.doctor.doctor.id.toString(),
 //   }));
 // }
 
@@ -39,27 +39,27 @@
 //           <div className="w-2/5 flex-row items-start justify-start">
 //             <div className="flex justify-start items-start mt-12">
 //               <p className="text-xl font-medium underline pr-2">Họ tên:</p>
-//               <p className="text-xl font-normal pr-2">{doctor.doctor.doctor.doctor.name}</p>
+//               <p className="text-xl font-normal pr-2">{doctor.doctor.doctor.doctor.doctor.doctor.doctor.doctor.name}</p>
 //             </div>
 //             <div className="flex justify-start items-start mt-4">
 //               <p className="text-xl font-medium underline pr-2">Giới tính:</p>
-//               <p className="text-xl font-normal pr-2">{doctor.doctor.doctor.doctor.gender == 'male' ? 'Nam' : 'Nữ'}</p>
+//               <p className="text-xl font-normal pr-2">{doctor.doctor.doctor.doctor.doctor.doctor.doctor.doctor.gender == 'male' ? 'Nam' : 'Nữ'}</p>
 //             </div>
 //             <div className="flex justify-start items-start mt-4">
 //               <p className="text-xl font-medium underline pr-2">Bằng cấp:</p>
-//               <p className="text-xl font-normal pr-2">{doctor.doctor.doctor.doctor.qualification}</p>
+//               <p className="text-xl font-normal pr-2">{doctor.doctor.doctor.doctor.doctor.doctor.doctor.doctor.qualification}</p>
 //             </div>
 //             <div className="flex justify-start items-start mt-4">
 //               <p className="text-xl font-medium underline pr-2">Chuyên khoa:</p>
-//               <p className="text-xl font-normal pr-2">{doctor.doctor.doctor.doctor.specialization}</p>
+//               <p className="text-xl font-normal pr-2">{doctor.doctor.doctor.doctor.doctor.doctor.doctor.doctor.specialization}</p>
 //             </div>
 //             <div className="flex justify-start items-start mt-4">
 //               <p className="text-xl font-medium underline pr-2">Số điện thoại:</p>
-//               <p className="text-xl font-normal pr-2">{doctor.doctor.doctor.doctor.phoneNumber}</p>
+//               <p className="text-xl font-normal pr-2">{doctor.doctor.doctor.doctor.doctor.doctor.doctor.doctor.phoneNumber}</p>
 //             </div>
 //             <div className="flex justify-start items-start mt-4">
 //               <p className="text-xl font-medium underline pr-2">Số năm kinh nghiệm:</p>
-//               <p className="text-xl font-normal pr-2">{doctor.doctor.doctor.doctor.yearOfExperience}</p>
+//               <p className="text-xl font-normal pr-2">{doctor.doctor.doctor.doctor.doctor.doctor.doctor.doctor.yearOfExperience}</p>
 //             </div>
 //           </div>
 //         </div>
@@ -74,21 +74,31 @@ import { Images } from "@/../public/assets/Images";
 import { DoctorWithId } from "@/interface";
 import { NEXT_PUBLIC_API_URL } from "@/ultils/contranst";
 
-// Hàm generateStaticParams để lấy danh sách các bác sĩ và tạo các tham số động cho từng trang
 export async function generateStaticParams() {
-  const response = await axios.get(`${NEXT_PUBLIC_API_URL}/doctor`);
-  const doctors = response.data;
+  try {
+    const response = await axios.get(`${NEXT_PUBLIC_API_URL}/doctor`);
+    const doctors = response.data;
 
-  return doctors.map((doctor: DoctorWithId) => ({
-    slug: doctor.doctor.id.toString(),
-  }));
+    // Ensure the returned data structure matches your usage
+    return doctors.map((doctor: DoctorWithId) => ({
+      id: doctor.id.toString(),
+    }));
+  } catch (error) {
+    console.error("Error fetching doctors:", error);
+    return [];
+  }
 }
 
 // Hàm lấy thông tin bác sĩ theo ID
 async function getDoctorById(id: string) {
-  const response = await axios.get(`${NEXT_PUBLIC_API_URL}/doctor/${id}`);
-  const doctor = response.data;
-  return doctor;
+  try {
+    const response = await axios.get(`${NEXT_PUBLIC_API_URL}/doctor/${id}`);
+    const doctor = response.data;
+    return doctor;
+  } catch (error) {
+    console.error(`Error fetching doctor with id ${id}:`, error);
+    return null;
+  }
 }
 
 // Component chính để hiển thị thông tin bác sĩ theo ID
@@ -97,14 +107,23 @@ export default async function DoctorByID({
 }: {
   params: { slug: string };
 }) {
-  const doctor: DoctorWithId = await getDoctorById(params.slug);
+  const doctor: DoctorWithId | null = await getDoctorById(params.slug);
+  if (!doctor) {
+    return <div>Error loading doctor data</div>;
+  }
   return (
     <div className="mt-12 items-center justify-center">
-      <div className="text-2xl font-semibold underline mx-72 mb-8">THÔNG TIN BÁC SĨ</div>
+      <div className="text-2xl font-semibold underline mx-72 mb-8">
+        THÔNG TIN BÁC SĨ
+      </div>
       <div className="flex items-center justify-center">
         <div className="w-3/5 flex items-start justify-start px-8 py-10 rounded-xl bg-slate-200">
           <div className="w-3/5 mr-10">
-            <Image alt="Doctor Image" src={Images.doctor} className="w-full rounded-md" />
+            <Image
+              alt="Doctor Image"
+              src={Images.doctor}
+              className="w-full rounded-md"
+            />
           </div>
           <div className="w-2/5 flex-row items-start justify-start">
             <div className="flex justify-start items-start mt-12">
@@ -113,23 +132,37 @@ export default async function DoctorByID({
             </div>
             <div className="flex justify-start items-start mt-4">
               <p className="text-xl font-medium underline pr-2">Giới tính:</p>
-              <p className="text-xl font-normal pr-2">{doctor.doctor.gender === 'male' ? 'Nam' : 'Nữ'}</p>
+              <p className="text-xl font-normal pr-2">
+                {doctor.doctor.gender === "male" ? "Nam" : "Nữ"}
+              </p>
             </div>
             <div className="flex justify-start items-start mt-4">
               <p className="text-xl font-medium underline pr-2">Bằng cấp:</p>
-              <p className="text-xl font-normal pr-2">{doctor.doctor.qualification}</p>
+              <p className="text-xl font-normal pr-2">
+                {doctor.doctor.qualification}
+              </p>
             </div>
             <div className="flex justify-start items-start mt-4">
               <p className="text-xl font-medium underline pr-2">Chuyên khoa:</p>
-              <p className="text-xl font-normal pr-2">{doctor.doctor.specialization}</p>
+              <p className="text-xl font-normal pr-2">
+                {doctor.doctor.specialization}
+              </p>
             </div>
             <div className="flex justify-start items-start mt-4">
-              <p className="text-xl font-medium underline pr-2">Số điện thoại:</p>
-              <p className="text-xl font-normal pr-2">{doctor.doctor.phoneNumber}</p>
+              <p className="text-xl font-medium underline pr-2">
+                Số điện thoại:
+              </p>
+              <p className="text-xl font-normal pr-2">
+                {doctor.doctor.phoneNumber}
+              </p>
             </div>
             <div className="flex justify-start items-start mt-4">
-              <p className="text-xl font-medium underline pr-2">Số năm kinh nghiệm:</p>
-              <p className="text-xl font-normal pr-2">{doctor.doctor.yearOfExperience}</p>
+              <p className="text-xl font-medium underline pr-2">
+                Số năm kinh nghiệm:
+              </p>
+              <p className="text-xl font-normal pr-2">
+                {doctor.doctor.yearOfExperience}
+              </p>
             </div>
           </div>
         </div>
