@@ -14,6 +14,11 @@ const ViewDoctorInfo = () => {
   const [searchDoctors, setSearchDoctors] = useState<DoctorWithId[]>([]);
 
   useEffect(() => {
+    // const creds = getCredentials()
+    // if (!creds) {
+    //   window.location.href = '/login';
+    //   return
+    // }
     const token = localStorage.getItem("idToken");
     axios
       .get(`${NEXT_PUBLIC_API_URL}/doctor`, {
@@ -67,7 +72,7 @@ const ViewDoctorInfo = () => {
             {searchInfo &&
               searchDoctors &&
               searchDoctors.map((doctor) => (
-                <Link href={`/view-doctor/${doctor.id}`}
+                <Link href={{ pathname: `/doctor-info`, query: { id: doctor.id } }}
                   key={doctor.id}
                   className="w-full h-28 bg-slate-200 flex items-center justify-start hover:cursor-pointer"
                 >
@@ -107,7 +112,7 @@ const ViewDoctorInfo = () => {
       <div className="flex flex-wrap justify-start items-center mt-12">
         {doctors &&
           doctors.map((doctor) => (
-            <Link href={`/view-doctor/${doctor.id}`} key={doctor.id} className="w-60 bg-gray-100 rounded-xl mx-4 my-2">
+            <Link href={{ pathname: `/doctor-info`, query: { id: doctor.id } }} key={doctor.id} className="w-60 bg-gray-100 rounded-xl mx-4 my-2">
               <Image
                 alt="Doctor image"
                 src={Images.doctor}

@@ -1,35 +1,27 @@
+"use client";
+import React, { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import axios from "axios";
 import Image from "next/image";
 
 import { Images, Icons } from "@/../public/assets/Images";
 import { DoctorWithId } from "@/interface";
 import { NEXT_PUBLIC_API_URL } from "@/ultils/contranst";
+import { error } from "console";
 
-export async function generateStaticParams() {
-  const response = await axios.get(`${NEXT_PUBLIC_API_URL}/doctor`);
-  const doctors = response.data;
+export default function DoctorByID() {
+  const searchParams = useSearchParams();
+  const id = searchParams.get("id");
 
-  return doctors.map((doctor: DoctorWithId) => ({
-    id: doctor.id.toString(),
-  }));
-}
-
-async function getDoctorById(id: string) {
-  const response = await axios.get(`${NEXT_PUBLIC_API_URL}/doctor/${id}`);
-  console.log(response.data);
-  if (response.data == "Cannot find doctor") {
-    return null;
-  }
-  const doctor = response.data;
-  return doctor;
-}
-
-export default async function DoctorByID({
-  params,
-}: {
-  params: { id: string };
-}) {
-  const doctor: DoctorWithId = await getDoctorById(params.id);
+  const [doctor, setDoctor] = useState<DoctorWithId>();
+  useEffect(() => {
+    axios
+      .get(`${NEXT_PUBLIC_API_URL}/doctor/${id}`)
+      .then((response) => {
+        setDoctor(response.data);
+      })
+      .catch((error) => console.log(error));
+  }, [id]);
   return (
     <>
       {doctor ? (
