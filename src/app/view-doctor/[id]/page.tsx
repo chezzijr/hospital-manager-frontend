@@ -70,15 +70,18 @@
 
 import axios from "axios";
 import Image from "next/image";
+
 import { Images } from "@/../public/assets/Images";
 import { DoctorWithId } from "@/interface";
 import { NEXT_PUBLIC_API_URL } from "@/ultils/contranst";
 
+// Ensure this function is correctly defined and exported
 export async function generateStaticParams() {
   try {
     const response = await axios.get(`${NEXT_PUBLIC_API_URL}/doctor`);
     const doctors = response.data;
 
+    // Ensure this returns the correct format for Next.js
     return doctors.map((doctor: DoctorWithId) => ({
       id: doctor.id.toString(),
     }));
@@ -88,6 +91,7 @@ export async function generateStaticParams() {
   }
 }
 
+// Ensure this function fetches data correctly
 async function getDoctorById(id: string) {
   try {
     const response = await axios.get(`${NEXT_PUBLIC_API_URL}/doctor/${id}`);
@@ -98,6 +102,7 @@ async function getDoctorById(id: string) {
   }
 }
 
+// Ensure the component properly handles fetched data
 export default async function DoctorByID({ params }: { params: { id: string } }) {
   const doctor: DoctorWithId | null = await getDoctorById(params.id);
 
