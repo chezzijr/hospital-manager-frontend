@@ -21,9 +21,11 @@ export default function ProfilePage() {
         } else if (role === 'PATIENT') {
             path = 'patient'
         } else if (role === 'ADMIN') {
-            path = 'admin'
+            window.location.href = '/admin';
+            return
         } else {
             window.location.href = '/login';
+            return
         }
 
         fetch(`${process.env.NEXT_PUBLIC_API_URL}/${path}/${creds.uid}`, {
@@ -58,6 +60,18 @@ export default function ProfilePage() {
     );
 }
 
+const Translator: {[key: string]: string} = {
+    role: 'Vai trò',
+    name: 'Tên',
+    specialization: 'Chuyên khoa',
+    email: 'Email',
+    phoneNumber: 'Số điện thoại',
+    qualification: 'Trình độ',
+    yearOfExperience: 'Số năm kinh nghiệm',
+    workingHours: 'Giờ làm việc',
+    dateOfBirth: 'Ngày sinh',
+}
+
 function ProfileRenderer({ profile }: { profile: any }) {
     const creds = getCredentials();
     if (!creds) {
@@ -70,8 +84,10 @@ function ProfileRenderer({ profile }: { profile: any }) {
         const val = value as string;
         return (
             <div key={key} className="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">{key}</dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2">{val}</dd>
+                <dt className="text-sm font-medium text-gray-500">{Translator[key] ?? key}</dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2">{
+                    key === 'dateOfBirth' ? new Date(val).toLocaleDateString() : val
+                }</dd>
             </div>
         );
     })
@@ -79,7 +95,7 @@ function ProfileRenderer({ profile }: { profile: any }) {
     return (
         <div className="bg-white shadow overflow-hidden sm:rounded-lg">
             <div className="px-4 py-5 sm:px-6">
-                <h3 className="text-lg font-medium leading-6 text-gray-900">User Profile</h3>
+                <h3 className="text-lg font-medium leading-6 text-gray-900">Hồ sơ người dùng</h3>
             </div>
             <div className="border-t border-gray-200">
                 <dl>
