@@ -41,7 +41,7 @@ const Header = () => {
   }, [isLogin]);
 
   return (
-    <div className="h-20 bg-blue-500 px-16 flex items-center justify-between">
+    <div className="w-full h-20 bg-blue-500 px-16 flex items-center justify-between">
       <Link href={"/"} className="h-20 flex items-center w-2/5">
         <Image
           src={Images.logo}
@@ -75,6 +75,12 @@ const Header = () => {
                 className="w-32 h-20 hover:bg-blue-600 flex items-center justify-center"
               >
                 <button className="text-normal font-medium">Đánh giá</button>
+              </Link>
+              <Link
+                href={"/prescription-patient"}
+                className="w-32 h-20 hover:bg-blue-600 flex items-center justify-center"
+              >
+                <button className="text-normal font-medium">Đơn thuốc</button>
               </Link>
             </div>
           ) : (
