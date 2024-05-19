@@ -3,11 +3,11 @@ import React, { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import axios from "axios";
 import Image from "next/image";
+import { Suspense } from 'react';
 
 import { Images, Icons } from "@/../public/assets/Images";
 import { DoctorWithId } from "@/interface";
 import { NEXT_PUBLIC_API_URL } from "@/ultils/contranst";
-import { Suspense } from "react";
 
 export default function DoctorInfo() {
     return (

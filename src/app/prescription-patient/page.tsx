@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import axios from "axios";
 import { NEXT_PUBLIC_API_URL } from "@/ultils/contranst";
+import { getCredentials } from "@/lib/creds";
 
 import { PrescriptionWithId, Medicine } from "@/interface";
 
@@ -12,8 +13,13 @@ const Prescription = () => {
   const [isNoPreScription, setIsNoPrescription] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem("idToken");
-    const uid = localStorage.getItem("uid");
+    const creds = getCredentials();
+    if (!creds) {
+      window.location.href = "/login";
+      return;
+    }
+    const token = creds.idToken;
+    const uid = creds.uid;
     axios
       .get(`${NEXT_PUBLIC_API_URL}/prescription/patient/${uid}`, {
         headers: { Authorization: `Bearer ${token}` },

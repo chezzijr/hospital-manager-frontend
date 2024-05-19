@@ -30,7 +30,7 @@ export interface Medicine {
   description: string;
   manufacturer: string;
   price: number;
-  expiryDate: Date;
+  expiryDate: Date | null;
   activeIngredients: string;
   dosage: string;
   medicineType: string;
@@ -63,4 +63,9 @@ export interface FeedbackWithId {
 export interface PrescriptionWithId {
   id: string;
   prescription: Prescription;
+}
+
+export interface MedicineWithId {
+  id: string;
+  medicine: Medicine;
 }

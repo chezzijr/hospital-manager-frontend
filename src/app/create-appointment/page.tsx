@@ -6,6 +6,7 @@ import axios from "axios";
 import Link from "next/link";
 import { v4 as uuidv4 } from "uuid";
 import { NEXT_PUBLIC_API_URL } from "@/ultils/contranst";
+import { getCredentials } from "@/lib/creds";
 
 import { Images, Icons } from "@/../public/assets/Images";
 import CalendarForm from "@/components/CanlendarForm";
@@ -36,7 +37,11 @@ const CreateAppointment = () => {
   }, []);
 
   const handleCreateNewAppointment = () => {
-    const formData = new FormData();
+    const creds = getCredentials();
+    if (!creds) {
+      window.location.href = "/login";
+      return;
+    }
     const id = uuidv4();
     const patientId: string | null = localStorage?.getItem("uid");
     const doctorId = doctor?.id;
@@ -50,22 +55,8 @@ const CreateAppointment = () => {
     };
     const locationToString = JSON.stringify(location);
     const dateCreated = new Date();
+    const token = creds.idToken;
 
-    if (patientId && doctorId && appointmentDate != null) {
-      formData.append("patientId", patientId);
-      formData.append("doctorId", doctorId);
-      formData.append("id", id);
-      formData.append(
-        "appointmentDate",
-        date ? date.toString() : appointmentDate.toISOString()
-      );
-      formData.append("content", appointmentContent);
-      formData.append("status", status);
-      formData.append("location", locationToString);
-      formData.append("dateCreated", dateCreated.toISOString());
-    }
-
-    const token = localStorage.getItem("idToken");
 
     axios
       .post(

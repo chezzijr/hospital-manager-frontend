@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { FeedbackWithId } from "@/interface";
 // import { RatingStar } from "@/components/RatingStar";
 import { NEXT_PUBLIC_API_URL } from "@/ultils/contranst";
+import { getCredentials } from "@/lib/creds";
 
 const CreateFeedBack = () => {
   const [feedbacks, setFeedbacks] = useState<FeedbackWithId[]>([]);
@@ -15,7 +16,12 @@ const CreateFeedBack = () => {
   const router = useRouter();
 
   useEffect(() => {
-    const token = localStorage.getItem("idToken");
+    const creds = getCredentials();
+    if (!creds) {
+      window.location.href = "/login";
+      return;
+    }
+    const token = creds.idToken;
     axios
       .get(`${NEXT_PUBLIC_API_URL}/feedback`, {
         headers: { Authorization: `Bearer ${token}` },
