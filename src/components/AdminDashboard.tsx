@@ -35,7 +35,7 @@ export default function AdminDashboardPage() {
                     <SelectTab options={[
                         { name: 'Tạo người dùng', value: <CreateUserForm /> },
                         { name: 'Quản lý trang thiết bị y tế', value: <MedicalEquipmentManagement /> },
-                        { name: 'Quản lý thuốc', value: <Link href="/admin/medicine"><a>Quản lý thuốc</a></Link>}
+                        { name: <Link href="/admin/medicine">Quản lý thuốc</Link>, value: <></>}
                     ]} />
                 </div>
             )}
