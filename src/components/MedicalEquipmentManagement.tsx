@@ -97,30 +97,40 @@ export default function MedicalEquipmentManagement() {
 
     return (
         <>
-        {pending && <div>Loading...</div>}
-        {error && <div className="text-red-500">{error}</div>}
-        <div className="flex">
-            <form className="m-2 p-2 flex flex-col" onSubmit={submitForm}>
-                <h1>Thêm trang thiết bị y tế</h1>
-                <label htmlFor="name">Tên</label>
-                <input type="text" placeholder="Tên" value={name} onChange={(e) => setName(e.target.value)} />
-                <label htmlFor="latestMaintenanceDate">Ngày bảo trì gần nhất</label>
-                <input type="date" placeholder="Ngày bảo trì gần nhất" onChange={(e) => setLatestMaintenanceDate(new Date(e.target.value))} />
-                <button type="submit">Thêm</button>
-            </form>
-            <div>
-                <h1>Danh sách trang thiết bị y tế</h1>
-                <div className="flex justify-stretch">
-                    {medicalEquipment.map((equipment, index) => (
-                        <div className="m-2 p-2 rounded border-2" key={index}>
-                            <h2>Tên: {equipment.name}</h2>
-                            <p>Khả dụng: {equipment.available ? 'Yes' : 'No'}</p>
-                            <p>Ngày nhập: {new Date(equipment.importedDate).toLocaleString()}</p>
-                        </div>
-                    ))}
+            {pending && <div>Loading...</div>}
+            {error && <div className="text-red-500">{error}</div>}
+            <div className="flex">
+                <form className="m-2 p-2 flex flex-col" onSubmit={submitForm}>
+                    <h1>Thêm trang thiết bị y tế</h1>
+                    <label htmlFor="name">Tên</label>
+                    <input type="text" placeholder="Tên" value={name} onChange={(e) => setName(e.target.value)} />
+                    <label htmlFor="latestMaintenanceDate">Ngày bảo trì gần nhất</label>
+                    <input type="date" placeholder="Ngày bảo trì gần nhất" onChange={(e) => setLatestMaintenanceDate(new Date(e.target.value))} />
+                    <button type="submit">Thêm</button>
+                </form>
+                <div>
+                    <h1>Danh sách trang thiết bị y tế</h1>
+                    <div className="grid grid-cols-6">
+                        {medicalEquipment.map((equipment, index) => (
+                            <div className="m-2 p-2 rounded border-2" key={index}>
+                                <h2>Tên: {equipment.name}</h2>
+                                <p>Khả dụng: {equipment.available ? 'Yes' : 'No'}</p>
+                                <p>Ngày nhập: {new Date(equipment.importedDate).toLocaleString()}</p>
+                                {equipment.isBeingUsedBy && <p>Đang sử dụng bởi: {equipment.isBeingUsedBy}</p>}
+                                {equipment.latestUsageDate && <p>Ngày sử dụng gần nhất: {new Date(equipment.latestUsageDate).toLocaleString()}</p>}
+                                {equipment.latestMaintenanceDate && <p>Ngày bảo trì gần nhất: {new Date(equipment.latestMaintenanceDate).toLocaleString()}</p>}
+                                {equipment.usageHistory.map((usage, index) => (
+                                    <div key={index}>
+                                        <p>Ngày bắt đầu sử dụng: {new Date(usage.startDate).toLocaleString()}</p>
+                                        <p>Ngày kết thúc sử dụng: {new Date(usage.endDate).toLocaleString()}</p>
+                                        <p>Được giao cho: {usage.assignedTo}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
-        </div>
         </>
     )
 }
