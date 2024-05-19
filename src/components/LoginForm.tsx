@@ -4,6 +4,7 @@ import { useState, FormEvent } from 'react';
 import type { Credentials } from '@/types/auth';
 import { hashCode } from '@/lib/hash';
 import { hashCreds, storeCreds } from '@/lib/creds';
+import Link from 'next/link';
 
 export default function Login() {
     const [email, setEmail] = useState('');
@@ -25,13 +26,12 @@ export default function Login() {
         }).then(async (res) => {
             if (res.ok) {
                 const data = await res.json() as Credentials
-                // Save the token in the local storage
-                // for (let [key, value] of Object.entries(data)) {
-                //     localStorage.setItem(key, value.toString())
-                // }
-                // localStorage.setItem("hashCreds", hashCreds(data).toString())
+                if (!data.emailVerified) {
+                    alert('Vui lòng xác minh email của bạn trước khi đăng nhập.');
+                    window.location.reload();
+                    return
+                }
 
-                // console.log(localStorage.getItem("hashCreds"));
                 storeCreds(data)
 
                 setPending(false);
@@ -103,9 +103,9 @@ export default function Login() {
                             </label>
                         </div>
                         <div className="text-sm">
-                            <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
+                            <Link href="/resetPassword" className="font-medium text-indigo-600 hover:text-indigo-500">
                                 Quên mật khẩu?
-                            </a>
+                            </Link>
                         </div>
                     </div>
                     <div>
