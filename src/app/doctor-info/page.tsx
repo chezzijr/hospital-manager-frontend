@@ -9,7 +9,15 @@ import { DoctorWithId } from "@/interface";
 import { NEXT_PUBLIC_API_URL } from "@/ultils/contranst";
 import { Suspense } from "react";
 
-export default function DoctorByID() {
+export default function DoctorInfo() {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <DoctorByID />
+        </Suspense>
+    );
+}
+
+function DoctorByID() {
     const searchParams = useSearchParams();
     const id = searchParams.get("id");
 
@@ -23,7 +31,7 @@ export default function DoctorByID() {
             .catch((error) => console.log(error));
     }, [id]);
     return (
-        <Suspense>
+        <>
             {doctor ? (
                 <div className="mt-12 items-center justify-center">
                     <div className="text-2xl font-semibold underline mx-72 mb-8">
@@ -92,6 +100,6 @@ export default function DoctorByID() {
             ) : (
                 <div>Cannot find doctor</div>
             )}
-        </Suspense>
+        </>
     );
 }
