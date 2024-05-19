@@ -1,43 +1,26 @@
 "use client"
-import Head from 'next/head';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
 import '@/app/styles/color.css';
 import { getCredentials } from '@/lib/creds';
 
-export default function UserProfile() {
-    const router = useRouter();
-    const [error, setError] = useState("")
 
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        dateOfBirth: '',
-        gender: '',
-        workingHours: 0,
-        department: '',
-        yearOfExperience: 0,
-        phoneNumber: '',
-    });
+const NurseProfile = () => {
+    const [name, setName] = useState('');
+    const [dateOfBirth, setDateOfBirth] = useState('');
+    const [gender, setGender] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [workingHours, setWorkingHours] = useState('');
+    const [yearOfExperience, setYearOfExperience] = useState('');
+    const [department, setDepartment] = useState('');
+    const [error, setError] = useState('');
 
-    const redirectToHomePage = () => {
-        router.push("/trangchu.html");
-    };
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-        const { name, value } = e.target;
-        setFormData(prevState => ({
-            ...prevState,
-            [name]: value
-        }));
-    };
-
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-
+        // Handle form submission logic here
         const creds = getCredentials()
         if (!creds) {
-            router.push("/login")
+            window.location.href = "/login"
             return
         }
 
@@ -49,11 +32,18 @@ export default function UserProfile() {
             },
             body: JSON.stringify({
                 id: creds.uid,
-                ...formData
+                name,
+                dateOfBirth,
+                gender,
+                phoneNumber,
+                workingHours,
+                yearOfExperience,
+                department
             })
         }).then(res => {
             if (res.ok) {
-                router.push("/profile")
+                window.location.href = "/profile"
+                return
             } else {
                 res.json().then(data => {
                     setError(data)
@@ -62,77 +52,131 @@ export default function UserProfile() {
         }).catch(err => {
             setError(err)
         })
-
     };
+
     return (
-        <>
-            <div className="top">
-                <div className="container">
-                    <div className="header">
-                        <div className="menu-left">
-                            <div className="menu-item"><Link href="/user-management">Trang chủ</Link></div>
-                            <div className="menu-item"><Link href="http://localhost:3001/">Thông tin bác sĩ</Link></div>
-                            <div className="menu-item"><Link href="/nurseinfo.tsx">Hồ sơ bệnh nhân</Link></div>
+        <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+            <div className="max-w-md w-full space-y-8">
+                <div>
+                    <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Nurse Profile</h2>
+                </div>
+                <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+                    <div className="rounded-md shadow-sm -space-y-px">
+                        <div>
+                            <label htmlFor="name" className="sr-only">Họ tên</label>
+                            <input
+                                id="name"
+                                name="name"
+                                type="text"
+                                autoComplete="name"
+                                required
+                                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                placeholder="Họ tên"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                            />
                         </div>
-                        <div className="menu-right">
-                            <div className="notifications">
-                                Thông báo
-                                <div className="notifications-dropdown">
-                                    <ul>
-                                        <li><Link href="/info1">Tin tức 1</Link></li>
-                                        <li><Link href="/info2">Tin tức 2</Link></li>
-                                        <li><Link href="/info3">Tin tức 3</Link></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <button onClick={redirectToHomePage}>Thoát</button>
+                        <div>
+                            <label htmlFor="dateOfBirth" className="sr-only">Ngày sinh</label>
+                            <input
+                                id="dateOfBirth"
+                                name="dateOfBirth"
+                                type="date"
+                                autoComplete="bday"
+                                required
+                                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                placeholder="Ngày sinh"
+                                value={dateOfBirth}
+                                onChange={(e) => setDateOfBirth(e.target.value)}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="gender" className="sr-only">Giới tính</label>
+                            <select
+                                id="gender"
+                                name="gender"
+                                autoComplete="sex"
+                                required
+                                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                value={gender}
+                                onChange={(e) => setGender(e.target.value)}
+                            >
+                                <option value="">Giới tính</option>
+                                <option value="Male">Nam</option>
+                                <option value="Female">Nữ</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label htmlFor="phoneNumber" className="sr-only">Số điện thoại</label>
+                            <input
+                                id="phoneNumber"
+                                name="phoneNumber"
+                                type="text"
+                                pattern="\d*"
+                                autoComplete="tel"
+                                required
+                                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                placeholder="Số điện thoại"
+                                value={phoneNumber}
+                                onChange={(e) => setPhoneNumber(e.target.value)}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="workingHours" className="sr-only">Giờ làm việc</label>
+                            <input
+                                id="workingHours"
+                                name="workingHours"
+                                type="number"
+                                autoComplete="work-hours"
+                                required
+                                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                placeholder="Giờ làm việc"
+                                value={workingHours}
+                                onChange={(e) => setWorkingHours(e.target.value)}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="yearOfExperience" className="sr-only">Số năm kinh nghiệm</label>
+                            <input
+                                id="yearOfExperience"
+                                name="yearOfExperience"
+                                type="number"
+                                autoComplete="experience"
+                                required
+                                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                placeholder="Số năm kinh nghiệm"
+                                value={yearOfExperience}
+                                onChange={(e) => setYearOfExperience(e.target.value)}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="department" className="sr-only">Khoa</label>
+                            <input
+                                id="department"
+                                name="department"
+                                type="text"
+                                autoComplete="department"
+                                required
+                                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                placeholder="Khoa"
+                                value={department}
+                                onChange={(e) => setDepartment(e.target.value)}
+                            />
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <div className="container" style={{ background: 'rgb(206, 206, 239)' }} >
-                <h1 > Thông tin y tá</h1>
-                <form onSubmit={handleSubmit}>
-                    <div className="left-form">
-                        <label htmlFor="name">Họ và Tên:</label>
-                        <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
-
-                        <label htmlFor="email">Email:</label>
-                        <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required />
-
-                        <label htmlFor="dob">Ngày Sinh:</label>
-                        <input type="date" id="dob" name="dob" value={formData.dateOfBirth} onChange={handleChange} required />
-
-                        <label htmlFor="gender">Giới Tính:</label>
-                        <select id="gender" name="gender" value={formData.gender} onChange={handleChange}>
-                            <option value="male">Nam</option>
-                            <option value="female">Nữ</option>
-                            <option value="other">Khác</option>
-                        </select>
-
-                        <button type="submit" style={{ textAlign: 'center' }} >
-                            Lưu
+                    <div>
+                        <button
+                            type="submit"
+                            className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        >
+                            Hoàn tất
                         </button>
                     </div>
-
-                    <div className="right-form">
-                        <label htmlFor="workingHours">Giờ làm việc:</label>
-                        <input type="number" id="workingHours" name="workingHours" value={formData.workingHours} onChange={handleChange} required />
-
-                        <label htmlFor="department">Khoa:</label>
-                        <input type="text" id="department" name="department" value={formData.department} onChange={handleChange} required />
-
-                        <label htmlFor="yearOfExperience">Số năm kinh nghiệm:</label>
-                        <input type="number" id="yearOfExperience" name="yearOfExperience" value={formData.yearOfExperience} onChange={handleChange} required />
-
-                        <label htmlFor="phone">Số điện thoại:</label>
-                        <input type="text" pattern="[0-9]+" id="phone" name="phone" value={formData.phoneNumber} onChange={handleChange} required />
-                    </div>
-                    {error && <div style={{ color: 'red' }}>{error}</div>}
-
                 </form>
+                {error && <p className="text-red-500 text-center">{error}</p>
             </div>
-        </>
+        </div>
     );
-}
+};
+
+export default NurseProfile;
