@@ -248,7 +248,7 @@ const CreateNewMedicine = () => {
           <button
             className="w-32 h-10 bg-gray-500 hover:bg-gray-600 text-lg font-medium rounded-xl"
             onClick={() => {
-              router.push("/medicine");
+              router.push("/admin/medicine");
             }}
           >
             Hủy
@@ -257,7 +257,7 @@ const CreateNewMedicine = () => {
             className="w-32 h-10 bg-blue-500 hover:bg-blue-600 text-lg font-medium rounded-xl text-white"
             onClick={() => {
               handleAddNewMedicine();
-                setTimeout(() => router.push("/medicine"), 2000);
+                setTimeout(() => router.push("/admin/medicine"), 2000);
             }}
           >
             Xác nhận
