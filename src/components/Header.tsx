@@ -101,6 +101,13 @@ const Header = () => {
                                         className="w-32 h-20 hover:bg-blue-600 flex items-center justify-center"
                                     >Quản trị</Link>
                                 }
+                                {
+                                    userRole == "DOCTOR" &&
+                                    <Link
+                                        href={"/pending-appointment"}
+                                        className="w-32 h-20 hover:bg-blue-600 flex items-center justify-center"
+                                    >Cuộc hẹn</Link>
+                                }
                                 <Link
                                     href={"/"}
                                     className="w-32 h-20 hover:bg-blue-600 flex items-center justify-center"
