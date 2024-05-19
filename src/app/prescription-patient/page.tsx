@@ -5,6 +5,7 @@ import Link from "next/link";
 import axios from "axios";
 import { NEXT_PUBLIC_API_URL } from "@/ultils/contranst";
 import { getCredentials } from "@/lib/creds";
+
 import { PrescriptionWithId, Medicine } from "@/interface";
 
 const Prescription = () => {

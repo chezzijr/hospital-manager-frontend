@@ -55,8 +55,8 @@ const CreateAppointment = () => {
     };
     const locationToString = JSON.stringify(location);
     const dateCreated = new Date();
-
     const token = creds.idToken;
+
 
     axios
       .post(

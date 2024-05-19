@@ -6,6 +6,7 @@ import axios from "axios";
 import { NEXT_PUBLIC_API_URL } from "@/ultils/contranst";
 import { getCredentials } from "@/lib/creds";
 
+
 interface Location {
   address: string;
   floor: string;
@@ -39,6 +40,7 @@ const Appointment = () => {
     }
     const userId = creds.uid;
     const token = creds.idToken;
+
 
     axios
       .get(`${NEXT_PUBLIC_API_URL}/appointment/patient/${userId}`, {
