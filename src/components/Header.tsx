@@ -75,6 +75,10 @@ const Header = () => {
                             >
                                 <button className="text-normal font-medium">Đánh giá</button>
                             </Link>
+                            <Link
+                                href={"/profile"}
+                                className="w-32 h-20 hover:bg-blue-600 flex items-center justify-center"
+                            ><button className="text-normal font-medium">Hồ sơ</button></Link>
                         </div>
                     ) : (
                         <div>
@@ -89,6 +93,13 @@ const Header = () => {
                                         href={"/profile"}
                                         className="w-32 h-20 hover:bg-blue-600 flex items-center justify-center"
                                     >Hồ sơ</Link>
+                                }
+                                {
+                                    userRole == "ADMIN" &&
+                                    <Link
+                                        href={"/admin"}
+                                        className="w-32 h-20 hover:bg-blue-600 flex items-center justify-center"
+                                    >Quản trị</Link>
                                 }
                                 <Link
                                     href={"/"}
