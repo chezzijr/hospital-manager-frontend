@@ -2,20 +2,17 @@
 
 import { useState, FormEvent } from 'react';
 import type { Credentials } from '@/types/auth';
-import { hashCode } from '@/lib/hash';
-import { hashCreds, storeCreds } from '@/lib/creds';
+import { storeCreds } from '@/lib/creds';
 import Link from 'next/link';
 
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [pending, setPending] = useState(false);
     const [error, setError] = useState('');
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         // Handle login logic here
-        setPending(true);
 
         fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/signin`, {
             method: 'POST',
@@ -34,7 +31,6 @@ export default function Login() {
 
                 storeCreds(data)
 
-                setPending(false);
                 if (!data.emailVerified) {
                     alert('Please verify your email address');
                 } else {
@@ -111,7 +107,6 @@ export default function Login() {
                     <div>
                         <button
                             type="submit"
-                            disabled={pending}
                             className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         >
                             <span className="absolute left-0 inset-y-0 flex items-center pl-3">
