@@ -11,10 +11,17 @@ import { Prescription, MedicineWithId } from "@/interface";
 import { NEXT_PUBLIC_API_URL } from "@/ultils/contranst";
 import CalendarForm from "@/components/CanlendarForm";
 import { Icons } from "@root/public/assets/Images";
-import { error } from "console";
-
+import { Suspense } from "react";
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
+
+export default function PrescriptionInfo() {
+  return (
+      <Suspense fallback={<div>Loading...</div>}>
+          <PrescriptionDoctor />
+      </Suspense>
+  );
+}
 
 const PrescriptionDoctor = () => {
   const router = useRouter();
@@ -281,4 +288,3 @@ const PrescriptionDoctor = () => {
   );
 };
 
-export default PrescriptionDoctor;

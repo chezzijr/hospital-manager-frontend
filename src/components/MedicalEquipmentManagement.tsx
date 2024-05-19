@@ -61,7 +61,7 @@ export default function MedicalEquipmentManagement() {
 
         // fetch medical equipment
         fetchMedicalEquipment()
-    })
+    }, [])
 
     function submitForm(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault()

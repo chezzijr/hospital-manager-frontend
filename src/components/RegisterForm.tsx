@@ -31,17 +31,15 @@ const Register = () => {
                 //     localStorage.setItem(key, value.toString());
                 // }
                 // localStorage.setItem("hashCreds", hashCreds(data).toString());
-                storeCreds(data)
+                // storeCreds(data)
 
                 setPending(false);
 
                 // Redirect to the home page
                 if (!data.emailVerified) {
-                    alert('Please verify your email address');
-                } else {
-                    // Redirect to the home page
-                    window.location.href = '/';
+                    alert('Tin nhắn xác minh đã được gửi đến email. Vui lòng kiểm tra email của bạn và xác minh tài khoản trước khi đăng nhập.');
                 }
+                window.location.href = '/login';
             } else {
                 const data = await res.json();
                 setError(data.message);
