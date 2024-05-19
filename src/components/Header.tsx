@@ -36,7 +36,7 @@ const Header = () => {
         }
         setIsLogin(creds ? true : false);
         setUserRole(creds ? creds.role : "");
-    }, [isLogin]);
+    }, [isLogin, setIsLogin]);
 
     return (
         <div className="h-20 bg-blue-500 px-16 flex items-center justify-between">
