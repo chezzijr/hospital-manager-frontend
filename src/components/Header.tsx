@@ -38,6 +38,7 @@ const Header = () => {
         setUserRole(creds ? creds.role : "");
     }, [isLogin, setIsLogin]);
 
+
     return (
         <div className="h-20 bg-blue-500 px-16 flex items-center justify-between">
             <Link href={"/"} className="h-20 flex items-center w-2/5">

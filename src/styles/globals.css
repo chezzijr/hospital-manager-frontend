@@ -17,3 +17,8 @@
 .flex-between {
   @apply flex justify-between items-center;
 }
+
+.static-react-stars:before {
+  @apply absolute overflow-hidden block z-10 top-0 left-0 w-1/2 text-yellow-500;
+  content: attr(data-forhalf);
+}

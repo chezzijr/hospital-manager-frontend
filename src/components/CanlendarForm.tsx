@@ -15,7 +15,7 @@ const CalendarForm: React.FC<CalendarFormProps> = ({ date, setDate }) => {
 
   return (
     <div>
-      <Calendar onChange={onChange} value={value} />
+      <Calendar onChange={setDate} value={date} />
     </div>
   );
 }

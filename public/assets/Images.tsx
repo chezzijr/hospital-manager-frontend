@@ -8,6 +8,7 @@ const Icons = {
     avatar: require("./icons/user.png"),
     calendar: require("./icons/calendar.png"),
     search: require("./icons/search.png"),
+    downArrow: require("./icons/down-arrow.png"),
 }
 
 export { Images, Icons };
