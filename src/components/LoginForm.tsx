@@ -45,6 +45,7 @@ export default function Login() {
                 const data = await res.json();
                 setError(data.message);
             }
+            console.log(res)
         }).catch((error) => {
             setError('An error occurred: ' + error);
         })

@@ -2,9 +2,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Image from "next/image";
+import Link from "next/link";
 
 import { DoctorWithId } from "@/interface";
 import { Images, Icons } from "@/../public/assets/Images";
+import { NEXT_PUBLIC_API_URL } from "@/ultils/contranst";
 
 const ViewDoctorInfo = () => {
   const [doctors, setDoctors] = useState<DoctorWithId[]>([]);
@@ -12,9 +14,14 @@ const ViewDoctorInfo = () => {
   const [searchDoctors, setSearchDoctors] = useState<DoctorWithId[]>([]);
 
   useEffect(() => {
+    // const creds = getCredentials()
+    // if (!creds) {
+    //   window.location.href = '/login';
+    //   return
+    // }
     const token = localStorage.getItem("idToken");
     axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/doctor`, {
+      .get(`${NEXT_PUBLIC_API_URL}/doctor`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
@@ -28,7 +35,7 @@ const ViewDoctorInfo = () => {
   ) => {
     const token = localStorage.getItem("idToken");
     axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/doctor/name/${doctorName}`, {
+      .get(`${NEXT_PUBLIC_API_URL}/doctor/name/${doctorName}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
@@ -65,9 +72,9 @@ const ViewDoctorInfo = () => {
             {searchInfo &&
               searchDoctors &&
               searchDoctors.map((doctor) => (
-                <div
+                <Link href={{ pathname: `/doctor-info`, query: { id: doctor.id } }}
                   key={doctor.id}
-                  className="w-full h-28 bg-slate-200 flex items-center justify-start"
+                  className="w-full h-28 bg-slate-200 flex items-center justify-start hover:cursor-pointer"
                 >
                   <Image
                     alt="Doctor image"
@@ -97,15 +104,15 @@ const ViewDoctorInfo = () => {
                       </p>
                     </div>
                   </div>
-                </div>
+                </Link>
               ))}
           </div>
         </div>
       </div>
-      <div className="flex flex-wrap justify-between items-center mt-12">
+      <div className="flex flex-wrap justify-start items-center mt-12">
         {doctors &&
           doctors.map((doctor) => (
-            <div key={doctor.id} className="w-60 bg-gray-100 rounded-xl">
+            <Link href={{ pathname: `/doctor-info`, query: { id: doctor.id } }} key={doctor.id} className="w-60 bg-gray-100 rounded-xl mx-4 my-2">
               <Image
                 alt="Doctor image"
                 src={Images.doctor}
@@ -129,7 +136,7 @@ const ViewDoctorInfo = () => {
                   </p>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
       </div>
     </div>
