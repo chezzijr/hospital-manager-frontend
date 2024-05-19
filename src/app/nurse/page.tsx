@@ -1,5 +1,4 @@
 "use client"
-import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
 import '@/app/styles/color.css';
 import { getCredentials } from '@/lib/creds';
@@ -15,7 +14,7 @@ const NurseProfile = () => {
     const [department, setDepartment] = useState('');
     const [error, setError] = useState('');
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         // Handle form submission logic here
         const creds = getCredentials()
