@@ -90,6 +90,13 @@ const Header = () => {
                                         className="w-32 h-20 hover:bg-blue-600 flex items-center justify-center"
                                     >Hồ sơ</Link>
                                 }
+                                {
+                                    userRole == "ADMIN" &&
+                                    <Link
+                                        href={"/admin"}
+                                        className="w-32 h-20 hover:bg-blue-600 flex items-center justify-center"
+                                    >Quản trị</Link>
+                                }
                                 <Link
                                     href={"/"}
                                     className="w-32 h-20 hover:bg-blue-600 flex items-center justify-center"
