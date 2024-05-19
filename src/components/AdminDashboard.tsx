@@ -4,6 +4,7 @@ import { CreateUserForm } from "@/components/CreateUserForm"
 import MedicalEquipmentManagement from "@/components/MedicalEquipmentManagement";
 import SelectTab from "@/components/SelectTab"
 import { getCredentials } from "@/lib/creds";
+import Link from "next/link";
 import { useEffect, useState } from "react"
 
 export default function AdminDashboardPage() {
@@ -34,6 +35,7 @@ export default function AdminDashboardPage() {
                     <SelectTab options={[
                         { name: 'Tạo người dùng', value: <CreateUserForm /> },
                         { name: 'Quản lý trang thiết bị y tế', value: <MedicalEquipmentManagement /> },
+                        { name: 'Quản lý thuốc', value: <Link href="/admin/medicine"><a>Quản lý thuốc</a></Link>}
                     ]} />
                 </div>
             )}

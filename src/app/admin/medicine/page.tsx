@@ -12,7 +12,7 @@ const Medicines = () => {
   useEffect(() => {
     const creds = getCredentials();
     if (!creds) {
-      window.location.href = "/login";
+      window.location.href = "/";
       return;
     }
     axios
@@ -31,7 +31,7 @@ const Medicines = () => {
     <div>
       <div className="flex items-center justify-between mt-12 mx-8">
         <div className="opacity-0">!</div>
-        <Link href="/create-medicine" className="">
+        <Link href="/admin/create-medicine" className="">
           <button className="w-32 h-12 bg-blue-600 hover:bg-blue-700 text-white font-medium text-lg rounded-lg">
             Thêm thuốc
           </button>
