@@ -1,6 +1,7 @@
 "use client"
 
 import { getCredentials } from '@/lib/creds';
+import Link from 'next/link';
 import { useState, useEffect } from 'react';
 
 type AppointmentWithId = {
@@ -25,9 +26,12 @@ const Appointment = ({ appointmentWithId }: { appointmentWithId: AppointmentWith
     const { appointment } = appointmentWithId;
     return (
         <div className="bg-white shadow overflow-hidden sm:rounded-lg mb-4">
-            <div className="px-4 py-5 sm:px-6">
-                <h3 className="text-lg leading-6 font-medium text-gray-900">ID: {appointment.id}</h3>
-                <p className="mt-1 max-w-2xl text-sm text-gray-500">Trạng thái: {appointment.status}</p>
+            <div className="flex items-center justify-between">
+                <div className="px-4 py-5 sm:px-6">
+                    <h3 className="text-lg leading-6 font-medium text-gray-900">ID: {appointment.id}</h3>
+                    <p className="mt-1 max-w-2xl text-sm text-gray-500">Trạng thái: {appointment.status}</p>
+                </div>
+                <Link className="px-4 mx-4 py-2 bg-blue-400 rounded-lg overflow-hidden" href={`/prescription-doctor?patientId=${appointment.patientId}`}>Kê thuốc</Link>
             </div>
             <div className="border-t border-gray-200">
                 <dl>
@@ -77,8 +81,8 @@ const AppointmentsPage = () => {
 
         fetch(`${process.env.NEXT_PUBLIC_API_URL}/appointment/doctor/${creds.uid}`, {
             method: 'GET',
-            headers: { 
-                'authorization': `Bearer ${creds.idToken}` 
+            headers: {
+                'authorization': `Bearer ${creds.idToken}`
             },
         }).then(async res => {
             if (res.ok) {
