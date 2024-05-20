@@ -1,8 +1,10 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# BKCare Frontend
+Frontend của ứng dụng BKCare, môn LTNC HK232
 
-## Getting Started
+## Cài đặt và chạy
+- Cần NodeJS version >= 20.9.0
 
-First, run the development server:
+### Chạy dev server
 
 ```bash
 npm run dev
@@ -14,7 +16,17 @@ pnpm dev
 bun dev
 ```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Build và chạy
+```bash
+npm run build
+```
 
-### Using docker
-Run `docker compose watch`
+```bash
+npm start
+# or
+npx serve@latest out
+```
+
+### Sử dụng docker
+- Pull image từ https://hub.docker.com/r/chezzijr/bkcare-fe
+- Chạy: `docker run -d -p 3000:3000 --env NEXT_PUBLIC_API_URL=http://localhost:8080/api bkcare-fe` (thay port backend thành port mong muốn)
